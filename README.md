@@ -127,6 +127,8 @@ href="https://wa.me/51968382008?text="><img src="" height="125px"></a>
 ### **`🔗 OBTEN LOS ENLACES`**
 
 <details>
+ <summary><b> 👉 Haz Click Aqui </b></summary>
+
 | APP | TIPO | ENLACE |
 |------|-------------|-------|
 | WhatsApp | 𝒞𝒶𝓃𝒶𝓁 𝒪𝒻𝒾𝒸𝒾𝒶𝓁 | [¡Click aquí!]() |
