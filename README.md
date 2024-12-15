@@ -91,16 +91,6 @@ src="" />
 #### **`Creador:  🤴`**
 #### Realizado con:
 
-### **`【✫𝚃𝙴𝙰𝙼  乂 𝚂𝚃𝙰𝚁𝙲𝙾𝚁𝙴✫】`**
-
-![StarCore](https://i.ibb.co/r62XGfr/StarCore.jpg)
-<details>
-<summary><b> 👉 Canal Del Team</b></summary>
-
-- **StarCore:** [`Aquí`](https://whatsapp.com/channel/0029VankMyeBadmR9Ou0So3t)
-
-</details>
-
 ### **`CONTACTOS 💻`**
 <p>
 
@@ -180,10 +170,10 @@ npm start
 ---
 
 > **`Usa Mi Código de Referencia`**:
- VOed0vMx
+ 
 
 <!-- RAINBOW LINE BOT -->
 <img src="" width="100%">
 
-**`¡GRACIAS POR PREFERIR CROWBOT!` 💛**
+**`` 💛**
 <img src="" width="100%"/>
