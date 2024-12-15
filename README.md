@@ -156,7 +156,7 @@ apt update && apt upgrade && pkg install -y git nodejs ffmpeg imagemagick yarn
 ```
 
 ```bash
-git clone  && cd 
+git clone  && cd Lynx-AI
 ```
 
 ```bash
