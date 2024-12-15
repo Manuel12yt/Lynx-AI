@@ -37,7 +37,7 @@ src="" />
 
 
 
-<a href="#"><img title="" src="https://img.shields.io/badge/💛 | 💛 |  💛-blue?colorA=%23ff0000&colorB=%23000000&style=for-the-badge"></a>
+<a href="#"><img title="" src="https://img.shields.io/badge/Lynx-AI💛 |Lynx-AI 💛 |Lynx-AI 💛-blue?colorA=%23ff0000&colorB=%23000000&style=for-the-badge"></a>
 </p>
 
 <!-- RAINBOW LINE BOT -->
@@ -64,23 +64,23 @@ src="" />
 
 ### **` Características `**
 <details>
- <summary><b> <img src="" alt="Características" width="42" height="42"> Funciones de CrowBot (toca)</b></summary>
+ <summary><b> <img src="" alt="Características" width="42" height="42"> Funciones de ()</b></summary>
 
 > Bot en desarrollo si presenta alguna falla reportar al creador para darle una solución óptima.
 
-- [x] Interacción con voz y texto
+- [] Interacción con voz y texto
 - [x] Configuración de grupo
 - [x] antidelete, antilink, antispam, etc
 - [x] Bienvenida personalizada
-- [x] Juegos, tictactoe, mate, etc
-- [x] Chatbot (simsimi)
-- [x] Chatbot (autoresponder)
-- [x] Crear sticker de image/video/gif/url
+- [] Juegos, tictactoe, mate, etc
+- [] Chatbot (simsimi)
+- [] Chatbot (autoresponder)
+- [] Crear sticker de image/video/gif/url
 - [x] SubBot (Jadibot)
-- [x]    Buscador Google
-- [x] Juego RPG
-- [ ] Personalizar imagen del menú
-- [x] Descarga de música y video De YT
+- [] Buscador Google
+- [] Juego RPG
+- [] Personalizar imagen del menú
+- [] Descarga de música y video De YT
 - [ ] Otros
 
 </details>
