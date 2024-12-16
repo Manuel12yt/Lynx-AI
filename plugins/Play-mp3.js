@@ -26,7 +26,7 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
     // Buscar en YouTube
     const searchResults = await ytSearch(text);
     if (!searchResults.videos.length) {
-      return conn.reply(m.chat, `❀ No se encontraron resultados para "${text}"`, m);
+      return conn.reply(m.chat, `❀ No se encontraron resultados para "${text}"`, m,fake);
     }
 
     // Obtener el primer resultado
