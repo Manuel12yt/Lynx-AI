@@ -82,7 +82,9 @@ src="" />
 ---------
 
 #### **`Creador: DarkCore 🤴`**
+
 #### Realizado con:
+Manuel12yt
 
 ### **`CONTACTOS 💻`**
 <p>
