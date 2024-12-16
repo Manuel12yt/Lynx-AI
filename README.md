@@ -62,31 +62,24 @@ src="" />
 <img src="" width="100%">
 
 
-### **` Características `**
-<details>
- <summary><b> <img src="" alt="Características" width="42" height="42"> Funciones de ()</b></summary>
+---------
 
-> Bot en desarrollo si presenta alguna falla reportar al creador para darle una solución óptima.
+## <img src="https://i.pinimg.com/originals/73/69/6e/73696e022df7cd5cb3d999c6875361dd.gif" alt="Características" width="42" height="42"> Características
 
-- [] Interacción con voz y texto
+> Bot en creación pronto se agregaran más cosas 
+
+- [x] Interacción con voz y texto
 - [x] Configuración de grupo
-- [x] antidelete, antilink, antispam, etc
+- [x] antidelete, antilink, antiarabes, etc
 - [x] Bienvenida personalizada
-- [] Juegos, tictactoe, mate, etc
-- [] Chatbot (simsimi)
-- [] Chatbot (autoresponder)
-- [] Crear sticker de image/video/gif/url
+- [x] Chatbot (simsimi)
+- [x] Crear sticker de image/video/gif/url
 - [x] SubBot (Jadibot)
-- [] Buscador Google
-- [] Juego RPG
-- [] Personalizar imagen del menú
-- [] Descarga de música y video De YT
+- [x] Juego RPG
+- [x] Descarga de música y video de YT
 - [ ] Otros
 
-</details>
-<!-- RAINBOW LINE BOT -->
-<img src="https://github.com/AnderMendoza/AnderMendoza/raw/main/assets/line-neon.gif" width="100%">
-
+---------
 
 #### **`Creador: DarkCore 🤴`**
 #### Realizado con:
