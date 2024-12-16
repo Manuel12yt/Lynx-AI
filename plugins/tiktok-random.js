@@ -48,7 +48,7 @@ let handler = async (m, { conn, args, text, usedPrefix, command }) => {
 
 handler.help = ['tiktok <consulta>'];
 handler.tags = ['downloader'];
-handler.command = /^tiktokrandon$/i;
+handler.command = /^(tiktok|tk)$/i;
 handler.limit = true;
 handler.register = true;
 
