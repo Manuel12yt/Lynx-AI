@@ -42,7 +42,7 @@ async function tiktokdl(url) {
     let url = args[0];
   
     if (!url) {
-      m.reply("❌ *Debes proporcionar la URL de un video de TikTok.*");
+      m.reply("❌ *Debes proporcionar la URL de un video de TikTok.*",m,fake);
       return;
     }
   
