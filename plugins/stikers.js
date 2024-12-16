@@ -1,8 +1,19 @@
-import { sticker } from '../lib/sticker.js'; // Asegúrate de que esta función esté configurada correctamente
-//import { uploadImage, uploadFile } from '../lib/upload.js'; // Librerías de subida
+import { sticker } from '../lib/sticker.js';
+//import { uploadImage, uploadFile } from '../lib/upload.js';
 
 const isUrl = (text) => {
   return text.match(new RegExp(/https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&/=]*)(jpe?g|gif|png)/, 'gi'));
+};
+
+// Función para validar que una URL sea de imagen
+const isValidImageUrl = async (url) => {
+  try {
+    const res = await fetch(url);
+    const mime = res.headers.get('Content-Type');
+    return mime && mime.startsWith('image');
+  } catch (err) {
+    return false;
+  }
 };
 
 let handler = async (m, { conn, args, usedPrefix, command }) => {
@@ -40,8 +51,14 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
         stiker = await sticker(false, out, global.packname, global.author);
       }
     } else if (args[0]) {
+      // Validar si el primer argumento es una URL válida
       if (isUrl(args[0])) {
-        stiker = await sticker(false, args[0], global.packname, global.author);
+        const validUrl = await isValidImageUrl(args[0]);
+        if (validUrl) {
+          stiker = await sticker(false, args[0], global.packname, global.author);
+        } else {
+          return m.reply('💫 *La URL proporcionada no es una imagen válida o no se puede acceder.*');
+        }
       } else {
         return m.reply('💫 El URL proporcionado no es válido.');
       }
