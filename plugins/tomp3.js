@@ -26,5 +26,5 @@ const handler = async (m, { conn, usedPrefix, command }) => {
 
 handler.alias = ['tomp3', 'toaudio'];
 handler.command = /^to(mp3|audio)$/i;
-
+handler.register = true
 export default handler;
