@@ -1,19 +1,34 @@
 import axios from 'axios';
 
 const query = [
-  'story%20wa', 
-  'story%20sad', 
-  'video%20fun', 
-  'story%20wa%20galau', 
-  'story%20wa%20sindiran', 
-  'story%20wa%20bahagia', 
-  'story%20wa%20lirik%20lagu%20overlay', 
-  'story%20wa%20lirik%20lagu', 
-  'video%20viral'
+  'video%20divertido',           // videos divertidos
+  'video%20viral',               // video viral
+  'chistes%20latinos',           // chistes latinos
+  'bailes%20latinos',            // bailes latinos
+  'historias%20graciosas',       // historias graciosas
+  'memes%20latinos',             // memes latinos
+  'comedia%20latina',            // comedia latina
+  'fails%20graciosos',           // fails graciosos
+  'video%20de%20reto',           // videos de retos
+  'videos%20de%20mascotas',      // videos de mascotas
+  'tendencias%20de%20tik%20tok', // tendencias de tiktok
+  'video%20de%20familia',        // videos de familia
+  'humor%20latino',              // humor latino
+  'videos%20de%20chismes',       // videos de chismes
+  'videos%20de%20fiesta',        // videos de fiesta
+  'videos%20de%20bromas',        // videos de bromas
+  'videos%20de%20baile%20viral', // videos virales de baile
+  'video%20de%20gente%20bailando', // videos de gente bailando
+  'video%20de%20reaccion',       // videos de reacciones
+  'tiktok%20graciosos',          // tiktok graciosos
+  'video%20de%20viajes',         // videos de viajes
+  'videos%20de%20comida',        // videos de comida
+  'reto%20viral'                 // reto viral
 ];
 
+
 let handler = async (m, { conn, args, text, usedPrefix, command }) => {
-  m.reply('👀 *Esperando un momento, buscando un video aleatorio...*');
+  m.reply('👀 *Esperando un momento, buscando un video aleatorio...*',m,rcanal);
 
   // Selecciona un valor aleatorio del array de queries
   const randomQuery = query[Math.floor(Math.random() * query.length)];
