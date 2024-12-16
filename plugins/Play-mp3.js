@@ -28,6 +28,8 @@ conn.sendMessage(m.chat, { audio: { url: dl_url }, mimetype: "audio/mp4", ptt: t
 console.error(error)
 }}
 
+handler.help = ['play *<url>*']
+handler.tags = ['downloader']
 handler.command = ['ytmp3','play']
 
 export default handler
