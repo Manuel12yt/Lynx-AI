@@ -37,12 +37,12 @@ const defaultMenu = {
 ┋#     ✧ *Dark Bot - Ai ‹‹❑ౄ*
 ╚──────¤◎¤──────╝
 ╭━─━─━─≪𖣘≫─━─━─━╮
-┃✰ ➬ *Cliente:* %name
+┃✰ ➬ *Usuario:* %name
 ┃✰ ➬ *Estrellas:* %limit
 ┃✰ ➬ *Nivel:* %level [ %xp4levelup Xp Para Subir De Nivel]
 ┃✰ ➬ *Xp:* %exp / %maxexp
 ┃✰ ➬ *TotalXp:* %totalexp
- ╰━─━─━─≪𖣘≫─━─━─━╯
+╰━─━─━─≪𖣘≫─━─━─━╯
 ╔──────¤◎¤──────╗
 ┋#    ✦   *𝐈 N F O  ‹‹❑ౄ*
 ╚──────¤◎¤──────╝
@@ -58,7 +58,7 @@ const defaultMenu = {
  %readmore
 \t\t\t_*Ľł₷ŢȺ ಖε ʍэиบร*_ ﭢ
 `.trimStart(),
-  header: '╭═════⊹⊱≼「 *%category* 」≽⊰⊹════•',
+  header: '╭♩𓆧⌞⊹⊱≼「 *%category* 」≽⊰⊹════•',
   body: '┃❯ ✧ . %cmd %islimit %isPremium\n',
   footer: '╰═════⊹⊱≼≽⊰⊹═════╯',
   after: `© ${textbot}`,
