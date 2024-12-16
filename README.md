@@ -25,13 +25,6 @@
 
 ---------
 
-#### **`Creador: DarkCore 🤴`**
-
-#### Realizado con:
-Manuel12yt
-
----------
-
 ### **`CONTACTOS 💻`**
 
 - **Propietario:** [`Aquí`](https:/Wa.me/51968382008)
