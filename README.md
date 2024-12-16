@@ -7,10 +7,6 @@
 </p>
 
 > **`⛄ Versión Actual: 1.0.0`**  
-<a
-href=""><img title="Stars" src="https://img.shields.io/github/stars/WillZek/CrowBot-ST?color=yellow&style=flat-square"></a>
-
-<a href=""><img title="espectadores" src="https://img.shields.io/github/watchers/WillZek/CrowBot-ST?label=Espectadores&style=socia"></a>
 
 ---------
 
