@@ -59,7 +59,7 @@ const defaultMenu = {
 \t\t\t_*Ľł₷ŢȺ ಖε ʍэиบร*_ ﭢ
 `.trimStart(),
   header: '╭─────⊹⊱≼「 *%category* 」≽⊰──────',
-  body: '┃❯ ✧▻ . %cmd %islimit %isPremium\n',
+  body: '┃❯ ✧▻ %cmd %islimit %isPremium\n',
   footer: '╰─── ──⊹⊱≼≽⊰⊹══───═══╯',
   after: `© ${textbot}`,
 }
