@@ -34,7 +34,7 @@ var handler = async (m, { conn, usedPrefix, command }) => {
 }
 
 handler.help = ['toimg']
-handler.tags = ['img']
+handler.tags = ['group']
 handler.command = ['toimg', 'jpg', 'jpeg', 'png']
 handler.register = true
 handler.estrellas = 2
