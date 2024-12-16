@@ -21,7 +21,7 @@ let Styles = (text, style = 1) => {
   return output.join('');
 };
 let tags = {
-  'img': '`imagenes`',
+  'img': '`🐉 imagenes 🐉`',
   'downloader': '`🎭 Descargas🎭`',
   'user': '`🤖 Usuario🤖`',
   'group': '`😼 Grupo😼`',
