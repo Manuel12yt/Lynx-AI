@@ -22,11 +22,11 @@ let Styles = (text, style = 1) => {
 };
 let tags = {
   'img': '`imagenes`',
-  'downloader': '`Descargas`',
-  'user': '`Usuario`',
-  'group': '`Grupo`',
-  'owner': '`Creador`',
-  'enable': '`enable`',
+  'downloader': '`🎭 Descargas🎭`',
+  'user': '`🤖 Usuario🤖`',
+  'group': '`😼 Grupo😼`',
+  'owner': '`👑 Creador 👑`',
+  'enable': '`🔗 enable 🔗`',
 }
 
 const defaultMenu = {
