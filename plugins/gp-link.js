@@ -6,7 +6,7 @@ conn.reply(m.chat, '🔗\v' + link, m, rcanal, { detectLink: true })
 
 }
 handler.help = ['link']
-handler.tags = ['grupo']
+handler.tags = ['group']
 handler.command = ['link','linkgroup']
 
 handler.group = true
