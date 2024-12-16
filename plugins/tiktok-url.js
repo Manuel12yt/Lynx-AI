@@ -1,29 +1,49 @@
-let handler = async (m, { conn, args, text }) => {
-  let videoUrl = args[0]; // Get the TikTok video URL from the command
+async function tiktokdl(url) {
+  try {
+    // Asegúrate de que la URL esté correctamente formateada
+    let tikwm = `https://www.tikwm.com/api/?url=${encodeURIComponent(url)}&hd=1`; 
+    let response = await (await fetch(tikwm)).json();
+    
+    // Mostrar la respuesta en la consola
+    console.log("Respuesta de la API:", response);
+    
+    // Opcional: Retornar la respuesta si necesitas trabajar con ella después
+    return response;
+  } catch (err) {
+    console.error("Error al obtener el video:", err); // Mostrar error si falla
+    return null;
+  }
+}
 
-  if (!videoUrl) {
-    return m.reply('❌ *Please provide a TikTok video URL.*');
+// Handler que recibe la URL y muestra el resultado de la API en consola
+let handler = async (m, { conn, args, text, usedPrefix, command }) => {
+  let url = args[0];  // Suponiendo que el primer argumento sea la URL de TikTok
+
+  if (!url) {
+    m.reply("❌ *Debes proporcionar la URL de un video de TikTok.*");
+    return;
   }
 
+  // Llamada a la función tiktokdl con la URL proporcionada
   try {
-    const videoData = await tiktokdl(videoUrl); // Get the video details using tiktokdl
+    const response = await tiktokdl(url);
 
-    if (videoData) {
-      // Send the video to the user
-      await conn.sendMessage(m.chat, { video: { url: videoData.videoUrl }, caption: videoData.title }, { quoted: m });
+    if (response) {
+      console.log("Datos obtenidos de la API de TikTok:", response);
+      // Aquí puedes enviar un mensaje si lo deseas, por ejemplo:
+      // m.reply(`🔍 *Título:* ${response.title}`);
     } else {
-      m.reply('❌ *Error retrieving video.*');
+      m.reply("❌ *No se pudo obtener la información del video.*");
     }
   } catch (err) {
-    console.error("Error in sending TikTok video:", err);
-    m.reply('❌ *An error occurred while processing the video.*');
+    console.error("Error en la llamada al handler:", err);
+    m.reply("❌ *Hubo un error al obtener el video.*");
   }
 };
 
-handler.help = ['tiktok <url>'];
-handler.tags = ['downloader'];
-handler.command = /^(tiktokdl)$/i;
-handler.limit = true;
-handler.register = true;
+// Definir el comando y el handler
+handler.help = ['tiktok <url>'];  // Comando con la URL como argumento
+handler.tags = ['downloader'];     // Etiquetas del comando
+handler.command = /^(tiktok)$/i;  // Comando que se puede invocar
 
 export default handler;
