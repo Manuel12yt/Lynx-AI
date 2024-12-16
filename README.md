@@ -8,28 +8,9 @@ href=""><img title="Stars" src="https://img.shields.io/github/stars/WillZek/Crow
 
 </p>
 
-## 💛 **``**
+## 💛 **`Lynx-AI`**
 <a href="#"><img title="" src="https://img.shields.io/badge/Lynx-AI💛 |Lynx-AI 💛 |Lynx-AI 💛-blue?colorA=%23ff0000&colorB=%23000000&style=for-the-badge"></a>
 </p>
-
-
-### **`Informacion Importante De  🌠`**
-
-![Menu Secundario]()
-
-<details>
- <summary><b>:paperclip: Links Importantes</b></summary>
-
-- **Grupo De Ventas:** [`Aquí`](https://chat.whatsapp.com/)
-- **Comunidad Oficial:** [`Aquí`](https://chat.whatsapp.com/)
-- **Canal de WhatsApp:** [`Aquí`](https://whatsapp.com/channel/)
-- **Propietario Del Bot:** [`Aqui`](https:/Wa.me/51968382008)
-
-</details>
-
-<!-- RAINBOW LINE BOT -->
-<img src="" width="100%">
-
 
 ---------
 
