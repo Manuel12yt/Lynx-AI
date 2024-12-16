@@ -27,6 +27,7 @@ let tags = {
   'group': '`😼 Grupo😼`',
   'owner': '`👑 Creador 👑`',
   'enable': '`🔗 enable 🔗`',
+  'rpg': '`🥷 juegos rpg 🥷`',
 }
 
 const defaultMenu = {
