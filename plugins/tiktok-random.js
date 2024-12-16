@@ -1,29 +1,39 @@
-import axios from 'axios'
+import axios from 'axios';
 
-const query = ['story%20wa','story%20sad','video%20fun','story%20wa%20galau','story%20wa%20sindiran','story%20wa%20bahagia','story%20wa%20lirik%20lagu%20overlay','story%20wa%20lirik%20lagu','video%20viral']
+const query = [
+  'story%20wa', 
+  'story%20sad', 
+  'video%20fun', 
+  'story%20wa%20galau', 
+  'story%20wa%20sindiran', 
+  'story%20wa%20bahagia', 
+  'story%20wa%20lirik%20lagu%20overlay', 
+  'story%20wa%20lirik%20lagu', 
+  'video%20viral'
+];
 
-let handler = async (m, {
-    conn,
-    args,
-    text,
-    usedPrefix,
-    command
-}) => {
- m.reply(wait)
-tiktoks(`${query.getRandom()}`).then(a => {
-let cap = a.title
-conn.sendMessage(m.chat, {video: {url: a.no_watermark}, caption: cap}, {quoted: m})
-}).catch(err => {
-m.reply(eror)
-})
-}
-handler.help = ['tiktokrandom']
-handler.tags = ['downloader']
-handler.command = /^(tiktokrandom|ttrandom)$/i
-handler.limit = true 
-handler.register = true
+let handler = async (m, { conn, args, text, usedPrefix, command }) => {
+  m.reply('👀 *Esperando un momento, buscando un video aleatorio...*');
 
-export default handler
+  // Selecciona un valor aleatorio del array de queries
+  const randomQuery = query[Math.floor(Math.random() * query.length)];
+
+  try {
+    const a = await tiktoks(randomQuery);
+    let cap = a.title;
+    conn.sendMessage(m.chat, { video: { url: a.no_watermark }, caption: cap }, { quoted: m });
+  } catch (err) {
+    m.reply('❌ *Error al obtener el video.* Intenta de nuevo.');
+  }
+};
+
+handler.help = ['tiktokrandom'];
+handler.tags = ['downloader'];
+handler.command = /^(tiktokrandom|ttrandom)$/i;
+handler.limit = true;
+handler.register = true;
+
+export default handler;
 
 async function tiktoks(query) {
   return new Promise(async (resolve, reject) => {
@@ -33,7 +43,7 @@ async function tiktoks(query) {
         url: 'https://tikwm.com/api/feed/search',
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
-          'Cookie': 'current_language=en',
+          'Cookie': 'current_language=es',  // Cambié el idioma a español
           'User-Agent': 'Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Mobile Safari/537.36'
         },
         data: {
@@ -43,12 +53,13 @@ async function tiktoks(query) {
           HD: 1
         }
       });
+
       const videos = response.data.data.videos;
       if (videos.length === 0) {
-        reject("Tidak ada video ditemukan.");
+        reject('No se encontró ningún video.');
       } else {
-        const gywee = Math.floor(Math.random() * videos.length);
-        const videorndm = videos[gywee]; 
+        const gywee = Math.floor(Math.random() * videos.length);  // Elige un video aleatorio
+        const videorndm = videos[gywee];
 
         const result = {
           title: videorndm.title,
@@ -61,7 +72,7 @@ async function tiktoks(query) {
         resolve(result);
       }
     } catch (error) {
-      reject(error);
+      reject(error.message || 'Error desconocido.');
     }
   });
 }
