@@ -39,9 +39,11 @@ let handler = async (m, { conn, args, text, usedPrefix, command }) => {
 
   try {
     const a = await tiktoks(searchQuery); // Llamada a la función que obtiene el video
+    console.log("Video obtenido:", a); // Log para ver los detalles del video
     let cap = a.title;
     await conn.sendMessage(m.chat, { video: { url: a.no_watermark }, caption: cap }, { quoted: m });
   } catch (err) {
+    console.error("Error al obtener el video:", err); // Mejorar el registro de errores
     m.reply('❌ *Error al obtener el video.* Intenta de nuevo.');
   }
 };
@@ -98,7 +100,13 @@ async function tiktoks(query) {
 
 // Función que utiliza fetch para obtener datos de la API TikTok (para caso de URL)
 async function tiktokdl(url) {
-  let tikwm = `https://www.tikwm.com/api/?url=${url}?hd=1`;
-  let response = await (await fetch(tikwm)).json();
-  return response;
+  try {
+    let tikwm = `https://www.tikwm.com/api/?url=${url}?hd=1`;
+    let response = await (await fetch(tikwm)).json();
+    console.log("Respuesta de tiktokdl:", response); // Log de la respuesta de la URL
+    return response;
+  } catch (err) {
+    console.error("Error en tiktokdl:", err); // Log de error si algo falla
+    return null;
+  }
 }
