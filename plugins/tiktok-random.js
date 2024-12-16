@@ -26,15 +26,19 @@ const query = [
   'reto%20viral'                 // reto viral
 ];
 
-
 let handler = async (m, { conn, args, text, usedPrefix, command }) => {
-  m.reply('👀 *Esperando un momento, buscando un video aleatorio...*',m,rcanal);
+  let searchQuery = args.join(' ');  // Permite al usuario ingresar un término de búsqueda personalizado (ej: ozuna)
 
-  // Selecciona un valor aleatorio del array de queries
-  const randomQuery = query[Math.floor(Math.random() * query.length)];
+  if (!searchQuery) {
+    // Si no se da un término de búsqueda, selecciona uno aleatorio de la lista
+    searchQuery = query[Math.floor(Math.random() * query.length)];
+    m.reply('👀 *No se especificó un término, buscando un video aleatorio...*', m, rcanal);
+  } else {
+    m.reply(`👀 *Buscando videos sobre: ${searchQuery}*`, m, rcanal);
+  }
 
   try {
-    const a = await tiktoks(randomQuery);
+    const a = await tiktoks(searchQuery);
     let cap = a.title;
     conn.sendMessage(m.chat, { video: { url: a.no_watermark }, caption: cap }, { quoted: m });
   } catch (err) {
@@ -42,9 +46,9 @@ let handler = async (m, { conn, args, text, usedPrefix, command }) => {
   }
 };
 
-handler.help = ['tiktokrandom'];
+handler.help = ['tiktok <consulta>'];
 handler.tags = ['downloader'];
-handler.command = /^(tiktokrandom|ttrandom)$/i;
+handler.command = /^tiktokrandon$/i;
 handler.limit = true;
 handler.register = true;
 
