@@ -1,29 +1,29 @@
 import axios from 'axios';
 
 const query = [
-  'video%20divertido',           // videos divertidos
-  'video%20viral',               // video viral
-  'chistes%20latinos',           // chistes latinos
-  'bailes%20latinos',            // bailes latinos
-  'historias%20graciosas',       // historias graciosas
-  'memes%20latinos',             // memes latinos
-  'comedia%20latina',            // comedia latina
-  'fails%20graciosos',           // fails graciosos
-  'video%20de%20reto',           // videos de retos
-  'videos%20de%20mascotas',      // videos de mascotas
-  'tendencias%20de%20tik%20tok', // tendencias de tiktok
-  'video%20de%20familia',        // videos de familia
-  'humor%20latino',              // humor latino
-  'videos%20de%20chismes',       // videos de chismes
-  'videos%20de%20fiesta',        // videos de fiesta
-  'videos%20de%20bromas',        // videos de bromas
-  'videos%20de%20baile%20viral', // videos virales de baile
-  'video%20de%20gente%20bailando', // videos de gente bailando
-  'video%20de%20reaccion',       // videos de reacciones
-  'tiktok%20graciosos',          // tiktok graciosos
-  'video%20de%20viajes',         // videos de viajes
-  'videos%20de%20comida',        // videos de comida
-  'reto%20viral'                 // reto viral
+  'video%20divertido',           
+  'video%20viral',               
+  'chistes%20latinos',           
+  'bailes%20latinos',            
+  'historias%20graciosas',       
+  'memes%20latinos',             
+  'comedia%20latina',            
+  'fails%20graciosos',           
+  'video%20de%20reto',           
+  'videos%20de%20mascotas',      
+  'tendencias%20de%20tik%20tok', 
+  'video%20de%20familia',        
+  'humor%20latino',              
+  'videos%20de%20chismes',       
+  'videos%20de%20fiesta',        
+  'videos%20de%20bromas',        
+  'videos%20de%20baile%20viral', 
+  'video%20de%20gente%20bailando', 
+  'video%20de%20reaccion',       
+  'tiktok%20graciosos',          
+  'video%20de%20viajes',         
+  'videos%20de%20comida',        
+  'reto%20viral'                 
 ];
 
 let handler = async (m, { conn, args, text, usedPrefix, command }) => {
@@ -31,6 +31,7 @@ let handler = async (m, { conn, args, text, usedPrefix, command }) => {
 
   if (!searchQuery) {
     searchQuery = query[Math.floor(Math.random() * query.length)];
+    m.reply('👀 *No se especificó un término, buscando un video aleatorio...*');
   } else {
     m.reply(`👀 *Buscando videos sobre: ${searchQuery}*`);
   }
@@ -38,8 +39,12 @@ let handler = async (m, { conn, args, text, usedPrefix, command }) => {
   try {
     const a = await tiktoks(searchQuery); // Llamada a la función que obtiene el video
     console.log("Video obtenido:", a); // Log para ver los detalles del video
-    let cap = a.title;
-    await conn.sendMessage(m.chat, { video: { url: a.no_watermark }, caption: cap }, { quoted: m });
+    let cap = `🎥 *${a.title}*\n🔊 *Música:* [Escuchar Música](${a.music})`; // Adding music link and title
+    await conn.sendMessage(m.chat, { 
+      video: { url: a.no_watermark }, 
+      caption: cap, 
+      thumbnail: a.cover // Displaying the thumbnail image 
+    }, { quoted: m });
   } catch (err) {
     console.error("Error al obtener el video:", err); // Mejorar el registro de errores
     m.reply('❌ *Error al obtener el video.* Intenta de nuevo.');
@@ -96,15 +101,25 @@ async function tiktoks(query) {
   });
 }
 
-// Función que utiliza fetch para obtener datos de la API TikTok (para caso de URL)
 async function tiktokdl(url) {
-  try {
-    let tikwm = `https://www.tikwm.com/api/?url=${url}?hd=1`;
-    let response = await (await fetch(tikwm)).json();
-    console.log("Respuesta de tiktokdl:", response); // Log de la respuesta de la URL
-    return response;
-  } catch (err) {
-    console.error("Error en tiktokdl:", err); // Log de error si algo falla
-    return null;
+    try {
+      // Ensure the URL is correctly formatted without redundant parameters
+      let tikwm = `https://www.tikwm.com/api/?url=${encodeURIComponent(url)}&hd=1`; 
+      let response = await (await fetch(tikwm)).json();
+      
+      // Log the response for debugging
+      console.log("Respuesta de tiktokdl:", response); 
+      
+      // Check if the response contains the expected data
+      if (response.code === 200) {
+        return response; // Return the response containing video details
+      } else {
+        console.error("Error al obtener el video:", response.message);
+        return null;
+      }
+    } catch (err) {
+      console.error("Error en tiktokdl:", err); // Log of error in case of failure
+      return null;
+    }
   }
-}
+  
