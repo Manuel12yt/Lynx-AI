@@ -52,7 +52,8 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
 📎 *Enlace*: ${url}
     `.trim();
 
-    await conn.sendMessage(m.chat, { text: caption }, { quoted: m },m,fake);
+    conn.reply(m.chat, caption, m,rcanal);
+
 
     // Enviar el archivo MP3
     await conn.sendMessage(
