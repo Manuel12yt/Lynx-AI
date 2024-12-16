@@ -111,14 +111,15 @@ href="https://wa.me/51968382008?text="><img src="" height="125px"></a>
 
 ### **`🔗 OBTEN LOS ENLACES`**
 
-<details>
+<summary>
+  
 | APP | TIPO | ENLACE |
 |------|-------------|-------|
 | WhatsApp | 𝒞𝒶𝓃𝒶𝓁 𝒪𝒻𝒾𝒸𝒾𝒶𝓁 | [¡Click aquí!]() |
 | WhatsApp | 𝒢𝓇𝓊𝓅𝑜 𝒪𝒻𝒾𝒸𝒾𝒶𝓁 | [¡Click aquí!]() |
 | WhatsApp | 𝒞𝑜𝓂𝓊𝓃𝒾𝒹𝒶𝒹 𝒪𝒻𝒾𝒸𝒾𝒶𝓁 | [¡Click aquí!]() |
 
-</details>
+</summary>
 
 ---------
 
