@@ -32,15 +32,15 @@ let handler = async (m, { conn, args, text, usedPrefix, command }) => {
   if (!searchQuery) {
     // Si no se da un término de búsqueda, selecciona uno aleatorio de la lista
     searchQuery = query[Math.floor(Math.random() * query.length)];
-    await m.reply('👀 *No se especificó un término, buscando un video aleatorio...*', m, rcanal);
+    m.reply('👀 *No se especificó un término, buscando un video aleatorio...*');
   } else {
-    await m.reply(`👀 *Buscando videos sobre: ${searchQuery}*`, m, rcanal);
+    m.reply(`👀 *Buscando videos sobre: ${searchQuery}*`);
   }
 
   try {
     const a = await tiktoks(searchQuery); // Llamada a la función que obtiene el video
     let cap = a.title;
-    conn.sendMessage(m.chat, { video: { url: a.no_watermark }, caption: cap }, { quoted: m });
+    await conn.sendMessage(m.chat, { video: { url: a.no_watermark }, caption: cap }, { quoted: m });
   } catch (err) {
     m.reply('❌ *Error al obtener el video.* Intenta de nuevo.');
   }
