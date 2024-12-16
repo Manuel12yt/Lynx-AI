@@ -52,7 +52,7 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
 📎 *Enlace*: ${url}
     `.trim();
 
-    await conn.sendMessage(m.chat, { text: caption }, { quoted: m });
+    await conn.sendMessage(m.chat, { text: caption }, { quoted: m },m,fake);
 
     // Enviar el archivo MP3
     await conn.sendMessage(
@@ -69,5 +69,5 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
 handler.help = ['play *<título o artista>*'];
 handler.tags = ['downloader'];
 handler.command = ['play', 'ytmp3'];
-
+  handler.register = true;
 export default handler;
