@@ -19,7 +19,7 @@ import fetch from 'node-fetch';
 
 let handler = async (m, { conn, text, usedPrefix, command }) => {
   if (!text) {
-    return conn.reply(m.chat, `❀ Ingresa el nombre de una canción o artista`, m);
+    return conn.reply(m.chat, `❀ Ingresa el nombre de una canción o artista`, m,fake);
   }
 
   try {
