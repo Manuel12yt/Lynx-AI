@@ -31,7 +31,6 @@ let handler = async (m, { conn, args, text, usedPrefix, command }) => {
 
   if (!searchQuery) {
     searchQuery = query[Math.floor(Math.random() * query.length)];
-    m.reply('👀 *No se especificó un término, buscando un video aleatorio...*');
   } else {
     m.reply(`👀 *Buscando videos sobre: ${searchQuery}*`);
   }
