@@ -29,6 +29,8 @@ await conn.sendMessage(m.chat, { video: { url: dl_url }, caption: null }, { quot
 console.error(error)
 }}
 
+handler.help = ['ytmp4 *<url>*']
+handler.tags = ['downloader']
 handler.command = ['ytmp4']
 
 export default handler
