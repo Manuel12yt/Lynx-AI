@@ -86,28 +86,19 @@ src="" />
 #### Realizado con:
 Manuel12yt
 
+---------
+
 ### **`CONTACTOS 💻`**
-<p>
-
-<a
-href="https://wa.me/51968382008?text="><img src="" height="125px"></a>
-
-<details>
-<summary><b> 💣 Contáctos</b></summary>
 
 - **Propietario:** [`Aquí`](https:/Wa.me/51968382008)
-
-</details>
-
-<!-- RAINBOW LINE BOT -->
-<img src="" width="100%">
-
  
 ### 💛 **``**
 
 > **CANAL Y GRUPO DEL BOT**
 
 ![Informacion]()
+
+---------
 
 ---------
 
