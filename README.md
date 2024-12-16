@@ -1,3 +1,9 @@
+</p>
+
+## 💛 **`Lynx-AI`**
+<a href="#"><img title="" src="https://img.shields.io/badge/Lynx-AI💛 |Lynx-AI 💛 |Lynx-AI 💛-blue?colorA=%23ff0000&colorB=%23000000&style=for-the-badge"></a>
+</p>
+
 <img src="https://i.ibb.co/R6xxwRn/LynxAI.png" width="100%"/> 
 
 > **`⛄ Versión Actual: 1.0.0`**  
@@ -5,12 +11,6 @@
 href=""><img title="Stars" src="https://img.shields.io/github/stars/WillZek/CrowBot-ST?color=yellow&style=flat-square"></a>
 
 <a href=""><img title="espectadores" src="https://img.shields.io/github/watchers/WillZek/CrowBot-ST?label=Espectadores&style=socia"></a>
-
-</p>
-
-## 💛 **`Lynx-AI`**
-<a href="#"><img title="" src="https://img.shields.io/badge/Lynx-AI💛 |Lynx-AI 💛 |Lynx-AI 💛-blue?colorA=%23ff0000&colorB=%23000000&style=for-the-badge"></a>
-</p>
 
 ---------
 
