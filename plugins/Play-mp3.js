@@ -69,5 +69,5 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
 handler.help = ['play *<título o artista>*'];
 handler.tags = ['downloader'];
 handler.command = ['play', 'ytmp3'];
-  handler.register = true;
+handler.register = true;
 export default handler;
