@@ -1,5 +1,6 @@
 </p>
 ## 💛 **`Lynx-AI`**
+
 <a href="#"><img title="" src="https://img.shields.io/badge/Lynx-AI💛 |Lynx-AI 💛 |Lynx-AI 💛-blue?colorA=%23ff0000&colorB=%23000000&style=for-the-badge"></a>
 </p>
 
