@@ -21,7 +21,7 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
   if (!text) {
     return conn.reply(m.chat, `❀ Ingresa el nombre de una canción o artista`, m,fake);
   }
-
+  await m.react('🕓')
   try {
     // Buscar en YouTube
     const searchResults = await ytSearch(text);
@@ -61,6 +61,7 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
       { audio: { url: audioUrl }, mimetype: 'audio/mp4', ptt: false },
       { quoted: m }
     );
+    await m.react('✅')
   } catch (error) {
     console.error(error);
     conn.reply(m.chat, `❀ Ocurrió un error al procesar tu solicitud. Por favor, inténtalo de nuevo más tarde.`, m);
