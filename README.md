@@ -156,7 +156,11 @@ apt update && apt upgrade && pkg install -y git nodejs ffmpeg imagemagick yarn
 ```
 
 ```bash
-git clone  && cd Lynx-AI
+git clone
+```
+
+```bash
+cd Lynx-AI
 ```
 
 ```bash
@@ -166,6 +170,7 @@ yarn install && npm install
 ```bash
 npm start
 ```
+
 > **Si después de poner el numero de WhatsApp, y sale letras en roja no se preocupe es normal**
 ---
 
