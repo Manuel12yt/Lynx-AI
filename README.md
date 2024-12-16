@@ -23,14 +23,6 @@
 - [x] Descarga de música y video de YT
 - [ ] Otros
 
----------
-
-### 💛 **``**
-
-> **CANAL Y GRUPO DEL BOT**
-
-![Informacion]()
-
 ----------
 
 ### **`🔗 OBTEN LOS ENLACES`**
