@@ -17,6 +17,7 @@ const handler = async (m, {conn, text, usedPrefix, command}) => {
 // Configura el comando que activará la función
 handler.help = ['gato']
 handler.tags = ['img']
+handler.register = true
 handler.command = /^(gato|cat|gatarandom)$/i;
 
 export default handler;
