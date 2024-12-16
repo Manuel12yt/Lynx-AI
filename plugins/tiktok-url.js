@@ -12,7 +12,7 @@ var handler = async (m, { conn, args, usedPrefix, command }) => {
         const tiktokData = await tiktokdl(args[0]);
         const videoURL = tiktokData.data.play;
         const videoURLWatermark = tiktokData.data.wmplay;
-        const infonya_gan = `*📖 Descripción:* ${tiktokData.data.title}\n*🚀 Publicado:* ${tiktokData.data.create_time}\n\n*⚜️ Estado:*\nLikes = ${tiktokData.data.digg_count}\nComentarios = ${tiktokData.data.comment_count}\nCompartidas = ${tiktokData.data.share_count}\nVistas = ${tiktokData.data.play_count}\nDescargas = ${tiktokData.data.download_count}\nUploader: ${tiktokData.data.author.nickname || "No info"}`;
+        const infonya_gan = `*📖 Descripción:* ${tiktokData.data.title}\n\n*🚀 Publicado:* ${tiktokData.data.create_time}\n\n*⚜️ Estado:*\nLikes = ${tiktokData.data.digg_count}\nComentarios = ${tiktokData.data.comment_count}\nCompartidas = ${tiktokData.data.share_count}\nVistas = ${tiktokData.data.play_count}\nDescargas = ${tiktokData.data.download_count}\nUploader: ${tiktokData.data.author.nickname || "No info"}`;
 
         if (videoURL || videoURLWatermark) {
             await conn.sendFile(m.chat, videoURL, "tiktok.mp4", "`DESCARGA DE TIKTOK`" + `\n\n${infonya_gan}`, m);
