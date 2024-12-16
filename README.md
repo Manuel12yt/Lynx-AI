@@ -25,19 +25,13 @@
 
 ---------
 
-### **`CONTACTOS 💻`**
-
-- **Propietario:** [`Aquí`](https:/Wa.me/51968382008)
- 
 ### 💛 **``**
 
 > **CANAL Y GRUPO DEL BOT**
 
 ![Informacion]()
 
----------
-
----------
+----------
 
 ### **`🔗 OBTEN LOS ENLACES`**
 
