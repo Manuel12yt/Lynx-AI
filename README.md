@@ -134,10 +134,7 @@ href="https://www.mediafire.com/file/3hsvi3xkpq3a64o/termux_118.a"><img src="htt
 
 <div align=>
 
-#### **`🚩Instalar Por Termux🚩`**
-
-<details>
- <summary><b> 👉 Haga Click para los ver Comandos</b></summary>
+---------
 
 #### **🪄 `Instalación manual por termux`**
 > copie y peguen en termux uno por uno 
@@ -164,6 +161,8 @@ yarn install && npm install
 ```bash
 npm start
 ```
+---------
+
 
 > **Si después de poner el numero de WhatsApp, y sale letras en roja no se preocupe es normal**
 ---
