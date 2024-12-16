@@ -2,7 +2,7 @@ import fetch from 'node-fetch'
 
 var handler = async (m, { conn, args, usedPrefix, command }) => {
    if (!args[0]) {
-        await conn.reply(m.chat, `*👀 Ejemplo: ${usedPrefix + command}* https://vm.tiktok.com/ZMhAk8tLx/`, m);
+        await conn.reply(m.chat, `*👀 Ejemplo: ${usedPrefix + command}* https://vm.tiktok.com/ZMhAk8tLx/`, m,rcanal);
         return;
     }
 
@@ -10,11 +10,6 @@ var handler = async (m, { conn, args, usedPrefix, command }) => {
         await conn.reply(m.chat, "👀 *Espere un momento, estoy descargando su video...*", m, rcanal);
 
         const tiktokData = await tiktokdl(args[0]);
-
-        if (!tiktokData) {
-            throw m.reply("Error api!");
-        }
-
         const videoURL = tiktokData.data.play;
         const videoURLWatermark = tiktokData.data.wmplay;
         const infonya_gan = `*📖 Descripción:* ${tiktokData.data.title}\n*🚀 Publicado:* ${tiktokData.data.create_time}\n\n*⚜️ Estado:*\nLikes = ${tiktokData.data.digg_count}\nComentarios = ${tiktokData.data.comment_count}\nCompartidas = ${tiktokData.data.share_count}\nVistas = ${tiktokData.data.play_count}\nDescargas = ${tiktokData.data.download_count}\nUploader: ${tiktokData.data.author.nickname || "No info"}`;
