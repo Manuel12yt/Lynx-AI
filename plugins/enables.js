@@ -134,6 +134,7 @@ break
 
 handler.help = ['enable', 'disable']
 handler.tags = ['enable']
+handler.register = true
 handler.command = /^(enable|disable|on|off|1|0)$/i
 
 export default handler
