@@ -52,7 +52,7 @@ let handler = async (m, { conn, args, text, usedPrefix, command }) => {
 
 handler.help = ['tiktok <consulta>'];
 handler.tags = ['downloader'];
-handler.command = /^(tiktokrandon|tiktok)$/i;
+handler.command = /^(tiktokrandom|tkrandom)$/i;
 handler.limit = true;
 handler.register = true;
 
