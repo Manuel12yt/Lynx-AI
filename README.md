@@ -9,39 +9,8 @@ href=""><img title="Stars" src="https://img.shields.io/github/stars/WillZek/Crow
 </p>
 
 ## 💛 **``**
-
-![Menú Principal]()
-
-<!-- RAINBOW LINE BOT -->
-<img src="" width="100%">
-
-<a href=""><img src="" /><a>
-
-<!-- RAINBOW LINE BOT -->
-<img src="" width="100%">
-
-
-
-<p align="center">
-  <img src="" alt="Example Usage - README Typing SVG">
-</p>
-<!-- RAINBOW LINE BOT -->
-<img src="" width="100%">
-
-
-<a href="">
-<img src="">
-</a>   <a
-href="" target="Black"><img
-src="" /> 
-
-
-
 <a href="#"><img title="" src="https://img.shields.io/badge/Lynx-AI💛 |Lynx-AI 💛 |Lynx-AI 💛-blue?colorA=%23ff0000&colorB=%23000000&style=for-the-badge"></a>
 </p>
-
-<!-- RAINBOW LINE BOT -->
-<img src="" width="100%">
 
 
 ### **`Informacion Importante De  🌠`**
