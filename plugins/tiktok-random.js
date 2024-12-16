@@ -27,14 +27,15 @@ const query = [
 ];
 
 let handler = async (m, { conn, args, text, usedPrefix, command }) => {
-  let searchQuery = args.join(' ');  // Permite al usuario ingresar un término de búsqueda personalizado (ej: ozuna)
+  let searchQuery = args.join(' ');
 
   if (!searchQuery) {
-    // Si no se da un término de búsqueda, selecciona uno aleatorio de la lista
     searchQuery = query[Math.floor(Math.random() * query.length)];
     m.reply('👀 *No se especificó un término, buscando un video aleatorio...*');
+    return
   } else {
     m.reply(`👀 *Buscando videos sobre: ${searchQuery}*`);
+    return
   }
 
   try {
