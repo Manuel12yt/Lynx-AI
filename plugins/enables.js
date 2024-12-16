@@ -22,7 +22,7 @@ let handler = async (m, { conn, usedPrefix, command, args, isOwner, isAdmin, isR
       chat.bienvenida = isEnable
       break
      
-     case 'autoread':
+    case 'autoread':
     case 'autoleer':
       isAll = true
       if (!isROwner) {
@@ -34,22 +34,21 @@ let handler = async (m, { conn, usedPrefix, command, args, isOwner, isAdmin, isR
 
     case 'document':
     case 'documento':
-    isUser = true
-    user.useDocument = isEnable
+     isUser = true
+     user.useDocument = isEnable
     break
 
-      case 'autoaceptar': case 'aceptarnuevos':
-if (!m.isGroup) {
-if (!isOwner) {
-global.dfail('group', m, conn)
-throw false
-}
-} else if (!isAdmin) {
-global.dfail('admin', m, conn)
-throw false
-}
-chat.autoAceptar = isEnable
-break
+    case 'autoaceptar': case 'aceptarnuevos':
+    if (!m.isGroup) {
+    if (!isOwner) {
+     global.dfail('group', m, conn)
+    throw false
+   }} else if (!isAdmin) {
+    global.dfail('admin', m, conn)
+  throw false
+   }
+  chat.autoAceptar = isEnable
+  break
 
     case 'antilink':
       if (m.isGroup) {
