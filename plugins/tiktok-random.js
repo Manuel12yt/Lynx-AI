@@ -32,9 +32,9 @@ let handler = async (m, { conn, args, text, usedPrefix, command }) => {
   if (!searchQuery) {
     // Si no se da un término de búsqueda, selecciona uno aleatorio de la lista
     searchQuery = query[Math.floor(Math.random() * query.length)];
-    m.reply('👀 *No se especificó un término, buscando un video aleatorio...*', m, rcanal);
+    await m.reply('👀 *No se especificó un término, buscando un video aleatorio...*', m, rcanal);
   } else {
-    m.reply(`👀 *Buscando videos sobre: ${searchQuery}*`, m, rcanal);
+    await m.reply(`👀 *Buscando videos sobre: ${searchQuery}*`, m, rcanal);
   }
 
   try {
