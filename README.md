@@ -122,4 +122,3 @@ npm start
 
 
 > **Si después de poner el numero de WhatsApp, y sale letras en roja no se preocupe es normal**
----
