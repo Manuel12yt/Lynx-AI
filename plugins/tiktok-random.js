@@ -38,7 +38,7 @@ let handler = async (m, { conn, args, text, usedPrefix, command }) => {
   }
 
   try {
-    const a = await tiktoks(searchQuery);
+    const a = await tiktoks(searchQuery); // Llamada a la función que obtiene el video
     let cap = a.title;
     conn.sendMessage(m.chat, { video: { url: a.no_watermark }, caption: cap }, { quoted: m });
   } catch (err) {
@@ -48,7 +48,7 @@ let handler = async (m, { conn, args, text, usedPrefix, command }) => {
 
 handler.help = ['tiktok <consulta>'];
 handler.tags = ['downloader'];
-handler.command = /^(tiktok|tk)$/i;
+handler.command = /^(tiktokrandon|tiktok)$/i;
 handler.limit = true;
 handler.register = true;
 
@@ -94,4 +94,11 @@ async function tiktoks(query) {
       reject(error.message || 'Error desconocido.');
     }
   });
+}
+
+// Función que utiliza fetch para obtener datos de la API TikTok (para caso de URL)
+async function tiktokdl(url) {
+  let tikwm = `https://www.tikwm.com/api/?url=${url}?hd=1`;
+  let response = await (await fetch(tikwm)).json();
+  return response;
 }
