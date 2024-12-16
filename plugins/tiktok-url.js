@@ -50,7 +50,7 @@ async function tiktokdl(url) {
       const videoBuffer = await tiktokdl(url);
   
       if (videoBuffer) {
-        conn.sendFile(m.chat, videoBuffer, 'video.mp4', 'Aquí está el video MP4', m);
+        conn.sendFile(m.chat, videoBuffer, 'video.mp4',listo, m);
       } else {
         m.reply("❌ *No se pudo obtener el archivo MP4 del video.*");
       }
