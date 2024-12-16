@@ -23,7 +23,7 @@ let api = await (await fetch(`https://api.siputzx.my.id/api/d/ytmp4?url=${text}`
 let dl_url = api.data.dl
 
 await conn.sendMessage(m.chat, { video: { url: dl_url }, caption: null }, { quoted: m })
-await m.react('')
+await m.react('✅')
 } catch (error) {
 console.error(error)
 }}
