@@ -38,7 +38,7 @@ let handler = async (m, { conn, args, text, usedPrefix, command }) => {
   try {
     const a = await tiktoks(searchQuery); // Llamada a la función que obtiene el video
     console.log("Video obtenido:", a); // Log para ver los detalles del video
-    let cap = `🎥 *${a.title}*\n🔊 *Música:* [Escuchar Música](${a.music})`; // Adding music link and title
+    let cap = `🎥 *${a.title}*)`; // Adding music link and title
     await conn.sendMessage(m.chat, { 
       video: { url: a.no_watermark }, 
       caption: cap, 
