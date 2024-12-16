@@ -50,7 +50,7 @@ let handler = async (m, { conn, args, text, usedPrefix, command }) => {
   }
 };
 
-handler.help = ['tiktok <consulta>'];
+handler.help = ['tiktok *<consulta>*'];
 handler.tags = ['downloader'];
 handler.command = ['tiktokrandom','tkrandom'];
 handler.limit = true;
