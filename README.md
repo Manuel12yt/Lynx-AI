@@ -123,12 +123,3 @@ npm start
 
 > **Si después de poner el numero de WhatsApp, y sale letras en roja no se preocupe es normal**
 ---
-
-> **`Usa Mi Código de Referencia`**:
- 
-
-<!-- RAINBOW LINE BOT -->
-<img src="" width="100%">
-
-**`` 💛**
-<img src="" width="100%"/>
