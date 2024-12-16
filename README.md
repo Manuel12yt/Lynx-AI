@@ -107,8 +107,8 @@ href="https://wa.me/51968382008?text="><img src="" height="125px"></a>
 
 ![Informacion]()
 
-
 ---------
+
 ### **`🔗 OBTEN LOS ENLACES`**
 
 <details>
@@ -119,8 +119,8 @@ href="https://wa.me/51968382008?text="><img src="" height="125px"></a>
 | WhatsApp | 𝒞𝑜𝓂𝓊𝓃𝒾𝒹𝒶𝒹 𝒪𝒻𝒾𝒸𝒾𝒶𝓁 | [¡Click aquí!]() |
 
 </details>
----------
 
+---------
 
 <!-- RAINBOW LINE BOT -->
 <img src="" width="100%">
