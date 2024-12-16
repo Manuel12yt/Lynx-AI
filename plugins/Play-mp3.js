@@ -14,22 +14,60 @@ https://whatsapp.com/channel/0029Vanjyqb2f3ERifCpGT0W
 */
 
 // *[ ❀ YTMP3 ]*
-import fetch from 'node-fetch'
+import ytSearch from 'yt-search';
+import fetch from 'node-fetch';
 
 let handler = async (m, { conn, text, usedPrefix, command }) => {
-if (!text) return conn.reply(m.chat, `❀ Ingresa un  link de youtube`, m)
-    
-try {
-let api = await (await fetch(`https://api.siputzx.my.id/api/d/ytmp3?url=${text}`)).json()
-let dl_url = api.data.dl
+  if (!text) {
+    return conn.reply(m.chat, `❀ Ingresa el nombre de una canción o artista`, m);
+  }
 
-conn.sendMessage(m.chat, { audio: { url: dl_url }, mimetype: "audio/mp4", ptt: true }, { quoted: m })
-} catch (error) {
-console.error(error)
-}}
+  try {
+    // Buscar en YouTube
+    const searchResults = await ytSearch(text);
+    if (!searchResults.videos.length) {
+      return conn.reply(m.chat, `❀ No se encontraron resultados para "${text}"`, m);
+    }
 
-handler.help = ['play *<url>*']
-handler.tags = ['downloader']
-handler.command = ['ytmp3','play']
+    // Obtener el primer resultado
+    const video = searchResults.videos[0];
+    const { title, url, views, timestamp, ago } = video;
 
-export default handler
+    // Descargar el audio MP3
+    const downloadUrl = `https://api.siputzx.my.id/api/d/ytmp3?url=${url}`;
+    const downloadResponse = await fetch(downloadUrl);
+    const downloadData = await downloadResponse.json();
+    const audioUrl = downloadData.data.dl;
+
+    if (!audioUrl) {
+      return conn.reply(m.chat, `❀ Ocurrió un error al intentar descargar el audio.`, m);
+    }
+
+    // Enviar información del video
+    const caption = `
+🎵 *Título*: ${title}
+⏱️ *Duración*: ${timestamp}
+👀 *Vistas*: ${views}
+📆 *Publicado hace*: ${ago}
+📎 *Enlace*: ${url}
+    `.trim();
+
+    await conn.sendMessage(m.chat, { text: caption }, { quoted: m });
+
+    // Enviar el archivo MP3
+    await conn.sendMessage(
+      m.chat,
+      { audio: { url: audioUrl }, mimetype: 'audio/mp4', ptt: false },
+      { quoted: m }
+    );
+  } catch (error) {
+    console.error(error);
+    conn.reply(m.chat, `❀ Ocurrió un error al procesar tu solicitud. Por favor, inténtalo de nuevo más tarde.`, m);
+  }
+};
+
+handler.help = ['play *<título o artista>*'];
+handler.tags = ['downloader'];
+handler.command = ['play', 'ytmp3'];
+
+export default handler;
