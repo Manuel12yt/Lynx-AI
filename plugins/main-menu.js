@@ -58,9 +58,9 @@ const defaultMenu = {
  %readmore
 \t\t\t_*Ľł₷ŢȺ ಖε ʍэиบร*_ ﭢ
 `.trimStart(),
-  header: '╭♩𓆧⌞⊹⊱≼「 *%category* 」≽⊰⊹════•',
-  body: '┃❯ ✧ . %cmd %islimit %isPremium\n',
-  footer: '╰═════⊹⊱≼≽⊰⊹═════╯',
+  header: '╭─────⊹⊱≼「 *%category* 」≽⊰──────',
+  body: '┃❯ ✧▻ . %cmd %islimit %isPremium\n',
+  footer: '╰─── ──⊹⊱≼≽⊰⊹══───═══╯',
   after: `© ${textbot}`,
 }
 
