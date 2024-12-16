@@ -99,26 +99,4 @@ async function tiktoks(query) {
     }
   });
 }
-
-async function tiktokdl(url) {
-    try {
-      // Ensure the URL is correctly formatted without redundant parameters
-      let tikwm = `https://www.tikwm.com/api/?url=${encodeURIComponent(url)}&hd=1`; 
-      let response = await (await fetch(tikwm)).json();
-      
-      // Log the response for debugging
-      console.log("Respuesta de tiktokdl:", response); 
-      
-      // Check if the response contains the expected data
-      if (response.code === 200) {
-        return response; // Return the response containing video details
-      } else {
-        console.error("Error al obtener el video:", response.message);
-        return null;
-      }
-    } catch (err) {
-      console.error("Error en tiktokdl:", err); // Log of error in case of failure
-      return null;
-    }
-  }
   
