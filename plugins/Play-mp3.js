@@ -15,10 +15,16 @@ let handler = async (m, { conn, text, command, quoted }) => {
       if (quotedMessage && /https?:\/\/[^\s]+/.test(quotedMessage)) {
         const urlMatch = quotedMessage.match(/https?:\/\/[^\s]+/);
         const isAudioRequest = /audio/i.test(text);
-        if (urlMatch && isAudioRequest) {
+        const isVideoRequest = /video/i.test(text);
+        if (urlMatch) {
           const url = urlMatch[0];
           await m.react('🕓');
-          return await processAudioDownload(m, conn, url); // Descargar audio
+          if (isAudioRequest) {
+            return await processAudioDownload(m, conn, url); // Descargar audio
+          }
+          if (isVideoRequest) {
+            return await processVideoDownload(m, conn, url); // Descargar video
+          }
         }
       }
     }
@@ -41,7 +47,7 @@ let handler = async (m, { conn, text, command, quoted }) => {
 👀 *Vistas*: ${views}
 📆 *Publicado hace*: ${ago}
 📎 *Enlace*: ${url}
-\n
+
 > - Para descargar responde a este mensaje con "Audio" o "Video".
     `.trim();
 
@@ -104,9 +110,43 @@ async function processAudioDownload(m, conn, url) {
   }
 }
 
+// Función para procesar la descarga del MP4
+async function processVideoDownload(m, conn, url) {
+  try {
+    const downloadUrl = `https://api.siputzx.my.id/api/d/ytmp4?url=${url}`;
+    const downloadResponse = await fetch(downloadUrl);
+    const downloadData = await downloadResponse.json();
+    const videoUrl = downloadData?.data?.dl;
+
+    if (!videoUrl) {
+      await m.react('❌');
+      return conn.reply(m.chat, `❀ Ocurrió un error al intentar descargar el video.`, m);
+    }
+
+    const tempFile = path.resolve('./temp', `video.mp4`);
+    const videoResponse = await fetch(videoUrl);
+    const videoBuffer = await videoResponse.buffer();
+    fs.writeFileSync(tempFile, videoBuffer);
+
+    // Enviar el archivo de video
+    await conn.sendMessage(
+      m.chat,
+      { video: fs.createReadStream(tempFile), mimetype: 'video/mp4' },
+      { quoted: m }
+    );
+
+    await m.react('✅');
+    fs.unlinkSync(tempFile);
+  } catch (error) {
+    console.error(error);
+    await m.react('⚠️');
+    conn.reply(m.chat, `❀ Ocurrió un error al intentar procesar el video.`, m);
+  }
+}
+
 handler.help = ['play *<título o artista>*'];
 handler.tags = ['downloader'];
-handler.command = ['play', 'ytmp3'];
+handler.command = ['play', 'ytmp3', 'ytmp4'];
 handler.register = true;
 
 export default handler;
