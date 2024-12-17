@@ -1,3 +1,4 @@
+
 import { createHash } from 'crypto'
 import fs from 'fs'
 import fetch from 'node-fetch'
@@ -20,8 +21,8 @@ let handler = async function (m, { conn, text, usedPrefix, command }) {
   user.regTime = + new Date
   user.registered = true
   let sn = createHash('md5').update(m.sender).digest('hex')
-  let img = await (await fetch(`https://i.ibb.co/R6xxwRn/LynxAI.png`)).buffer()
-  let txt = ` –  *R E G I S T R O  - L Y N X*\n\n`
+  let img = await (await fetch(`https://i.ibb.co/V3Hsgcy/file.jpg`)).buffer()
+  let txt = ` –  *R E G I S T R O  -  L Y N X*\n\n`
       txt += `┌  ❄️  *NOMBRE* : ${name}\n`
       txt += `│  ❄️  *EDAD* : ${age} años\n`
       txt += `│  ❄️  *NUMERO DE SERIE*\n`
@@ -29,8 +30,9 @@ let handler = async function (m, { conn, text, usedPrefix, command }) {
 await conn.sendAi(m.chat, botname, textbot, txt, img, img, canal, m)
 await m.react('✅')
 }
-handler.help = ['reg'].map(v => v + '*<nombre.edad>*')
-handler.tags = ["user"]
+handler.help = ['reg'].map(v => v + ' *<nombre.edad>*')
+handler.tags = ['rg']
+
 handler.command = ['verify', 'reg', 'register', 'registrar'] 
 
 export default handler
