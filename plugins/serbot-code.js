@@ -30,12 +30,12 @@ let handler = async (m, { conn: _conn, args, usedPrefix, command, isOwner }) => 
   async function serbot() {
 
   let authFolderB = m.sender.split('@')[0]
-    if (!fs.existsSync("./Sesion Subbots/"+ authFolderB)){
-        fs.mkdirSync("./Sesion Subbots/"+ authFolderB, { recursive: true });
+    if (!fs.existsSync("./LynxJadiBot/"+ authFolderB)){
+        fs.mkdirSync("./LynxJadiBots/"+ authFolderB, { recursive: true });
     }
-    args[0] ? fs.writeFileSync("./Sesion Subbots/" + authFolderB + "/creds.json", JSON.stringify(JSON.parse(Buffer.from(args[0], "base64").toString("utf-8")), null, '\t')) : ""
+    args[0] ? fs.writeFileSync("./LynxJadiBot/" + authFolderB + "/creds.json", JSON.stringify(JSON.parse(Buffer.from(args[0], "base64").toString("utf-8")), null, '\t')) : ""
 
-const {state, saveState, saveCreds} = await useMultiFileAuthState(`./Sesion Subbots/${authFolderB}`)
+const {state, saveState, saveCreds} = await useMultiFileAuthState(`./LynxJadiBot/${authFolderB}`)
 const msgRetryCounterMap = (MessageRetryMap) => { };
 const msgRetryCounterCache = new NodeCache()
 const {version} = await fetchLatestBaileysVersion();
@@ -181,4 +181,4 @@ export default handler
 
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
-    }
+}
