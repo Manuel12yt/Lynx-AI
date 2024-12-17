@@ -30,6 +30,7 @@ let tags = {
     'enable': '`🔗 Enable 🔗`',
     'rpg': '`🥷 Juegos RPG 🥷`',
     'tols': '`🎫 Tools 🎫`',
+    'serbot': '`🎫 jadibots 🎫`',
   };
   
 
