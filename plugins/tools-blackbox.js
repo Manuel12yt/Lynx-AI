@@ -18,7 +18,7 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
     }
 }
 handler.help = ['blackbox *<petición>*']
-handler.tags = ['tools']
+handler.tags = ['tols']
 handler.command = ['blackbox']
 handler.register = true
 
