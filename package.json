@@ -17,11 +17,11 @@
   },
   "homepage": "",
   "author": {
-    "name": ,
+    "name": "DarkCore"
   },
   "repository": {
-    "type": "git@github.com:Manuel12yt/Lynx-AI.git",
-    "url": "git+@github.com:Manuel12yt/Lynx-AI.git"
+    "type": "git",
+    "url": "git+https://github.com/Manuel12yt/Lynx-AI.git"
   },
   "bugs": {
     "url": "https://github.com/Manuel12yt/Lynx-AI"
