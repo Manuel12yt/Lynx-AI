@@ -7,7 +7,7 @@ let res = await fetch('https://api.waifu.pics/sfw/megumin')
 if (!res.ok) return
 let json = await res.json()
 if (!json.url) return
-await conn.sendFile(m.chat, json.url, 'thumbnail.jpg', listo, m)
+await conn.sendFile(m.chat, json.url, 'thumbnail.jpg', listo, m,fake)
 await m.react('✅')
 } catch {
 await m.react('✖️')
