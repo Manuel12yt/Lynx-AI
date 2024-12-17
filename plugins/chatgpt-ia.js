@@ -8,7 +8,7 @@ let handler = async (m, { conn, text }) => {
   try {
     await m.react('🕓');
 
-    const apiUrl = `https://apis-starlights-team.koyeb.app/starlight/chatgpt?text=${encodeURIComponent(text)}`;
+    const apiUrl = `https://apis-starlights-team.koyeb.app/starlight/gemini?text=${encodeURIComponent(text)}`;
 
     const controller = new AbortController();
     const timeout = setTimeout(() => controller.abort(), 10000);
