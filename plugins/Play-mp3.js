@@ -1,41 +1,19 @@
+// *[ ❀ YTMP3 ]*
 import ytSearch from 'yt-search';
 import fetch from 'node-fetch';
-import fs from 'fs';
-import path from 'path';
-import NodeID3 from 'node-id3';
 
-let handler = async (m, { conn, text, command, quoted }) => {
-  if (!text && !quoted) {
-    return conn.reply(m.chat, `❀ Ingresa el nombre de una canción o artista`, m);
+let handler = async (m, { conn, text, usedPrefix, command }) => {
+  if (!text) {
+    return conn.reply(m.chat, `❀ Ingresa el nombre de una canción o artista`, m, fake);
   }
 
   try {
-    if (quoted) {
-      const quotedMessage = quoted.text || quoted.caption;
-      if (quotedMessage && /https?:\/\/[^\s]+/.test(quotedMessage)) {
-        const urlMatch = quotedMessage.match(/https?:\/\/[^\s]+/);
-        const isAudioRequest = /audio/i.test(text);
-        const isVideoRequest = /video/i.test(text);
-        if (urlMatch) {
-          const url = urlMatch[0];
-          await m.react('🕓');
-          if (isAudioRequest) {
-            return await processAudioDownload(m, conn, url); // Descargar audio
-          }
-          if (isVideoRequest) {
-            return await processVideoDownload(m, conn, url); // Descargar video
-          }
-        }
-      }
-    }
-
     await m.react('🕓');
 
-    // Buscar en YouTube
     const searchResults = await ytSearch(text);
     if (!searchResults.videos.length) {
       await m.react('❌');
-      return conn.reply(m.chat, `❀ No se encontraron resultados para "${text}"`, m);
+      return conn.reply(m.chat, `❀ No se encontraron resultados para "${text}"`, m, fake);
     }
 
     const video = searchResults.videos[0];
@@ -47,21 +25,12 @@ let handler = async (m, { conn, text, command, quoted }) => {
 👀 *Vistas*: ${views}
 📆 *Publicado hace*: ${ago}
 📎 *Enlace*: ${url}
-
-> - Para descargar responde a este mensaje con "Audio" o "Video".
+\n
+> 🤴 un momento se esta enviando 🤴
     `.trim();
 
-    conn.reply(m.chat, caption, m);
-  } catch (error) {
-    console.error(error);
-    await m.react('⚠️');
-    conn.reply(m.chat, `❀ Ocurrió un error al procesar tu solicitud.`, m);
-  }
-};
+    conn.reply(m.chat, caption, m, rcanal);
 
-// Función para procesar la descarga del MP3
-async function processAudioDownload(m, conn, url) {
-  try {
     const downloadUrl = `https://api.siputzx.my.id/api/d/ytmp3?url=${url}`;
     const downloadResponse = await fetch(downloadUrl);
     const downloadData = await downloadResponse.json();
@@ -72,81 +41,26 @@ async function processAudioDownload(m, conn, url) {
       return conn.reply(m.chat, `❀ Ocurrió un error al intentar descargar el audio.`, m);
     }
 
-    // Crear la carpeta temp si no existe
-    const tempDir = './temp';
-    if (!fs.existsSync(tempDir)) fs.mkdirSync(tempDir);
-
-    const tempFile = path.resolve(tempDir, `audio.mp3`);
-    const audioResponse = await fetch(audioUrl);
-    const audioBuffer = await audioResponse.buffer();
-    fs.writeFileSync(tempFile, audioBuffer);
-
-    // Agregar etiquetas ID3
-    const tags = {
-      title: 'Descarga de YouTube',
-      artist: 'Bot',
-      album: 'YouTube',
-      year: new Date().getFullYear().toString(),
-      comment: {
-        text: `Descargado desde YouTube`,
-      },
-      genre: 'Podcast',
-    };
-    NodeID3.write(tags, tempFile);
-
-    // Enviar el archivo de audio con etiquetas
     await conn.sendMessage(
       m.chat,
-      { audio: fs.createReadStream(tempFile), mimetype: 'audio/mp4', ptt: false },
+      { audio: { url: audioUrl }, mimetype: 'audio/mp4', ptt: false },
       { quoted: m }
     );
-
     await m.react('✅');
-    fs.unlinkSync(tempFile);
   } catch (error) {
     console.error(error);
     await m.react('⚠️');
-    conn.reply(m.chat, `❀ Ocurrió un error al intentar procesar el audio.`, m);
-  }
-}
-
-// Función para procesar la descarga del MP4
-async function processVideoDownload(m, conn, url) {
-  try {
-    const downloadUrl = `https://api.siputzx.my.id/api/d/ytmp4?url=${url}`;
-    const downloadResponse = await fetch(downloadUrl);
-    const downloadData = await downloadResponse.json();
-    const videoUrl = downloadData?.data?.dl;
-
-    if (!videoUrl) {
-      await m.react('❌');
-      return conn.reply(m.chat, `❀ Ocurrió un error al intentar descargar el video.`, m);
-    }
-
-    const tempFile = path.resolve('./temp', `video.mp4`);
-    const videoResponse = await fetch(videoUrl);
-    const videoBuffer = await videoResponse.buffer();
-    fs.writeFileSync(tempFile, videoBuffer);
-
-    // Enviar el archivo de video
-    await conn.sendMessage(
+    conn.reply(
       m.chat,
-      { video: fs.createReadStream(tempFile), mimetype: 'video/mp4' },
-      { quoted: m }
+      `❀ Ocurrió un error al procesar tu solicitud.`,
+      m
     );
-
-    await m.react('✅');
-    fs.unlinkSync(tempFile);
-  } catch (error) {
-    console.error(error);
-    await m.react('⚠️');
-    conn.reply(m.chat, `❀ Ocurrió un error al intentar procesar el video.`, m);
   }
-}
+};
 
 handler.help = ['play *<título o artista>*'];
 handler.tags = ['downloader'];
-handler.command = ['play', 'ytmp3', 'ytmp4'];
+handler.command = ['play', 'ytmp3'];
 handler.register = true;
 
 export default handler;
