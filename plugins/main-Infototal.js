@@ -9,4 +9,5 @@ handler.help = ['totalfunciones']
 handler.tags = ['owner']
 handler.command = ['totalfunciones']
 handler.register = true
+handler.rowner = true
 export default handler 
