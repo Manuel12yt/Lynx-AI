@@ -1,3 +1,48 @@
+import { promises } from 'fs';
+import { join } from 'path';
+import { xpRange } from '../lib/levelling.js';
+
+const tags = {
+  'img': '`🐉 Imágenes 🐉`',
+  'downloader': '`🎭 Descargas 🎭`',
+  'user': '`🤖 Usuario 🤖`',
+  'group': '`😼 Grupo 😼`',
+  'owner': '`👑 Creador 👑`',
+  'enable': '`🔗 Enable 🔗`',
+  'rpg': '`🥷 Juegos RPG 🥷`',
+};
+
+const defaultMenu = {
+  before: `> 「 Dark Bot - AI 」\n
+╔──────¤◎¤──────╗
+┋#     ✧ *Dark Bot - Ai*
+╚──────¤◎¤──────╝
+╭━─━─━─≪𖣘≫─━─━─━╮
+┃✰ ➬ *Usuario:* %name
+┃✰ ➬ *Estrellas:* %limit
+┃✰ ➬ *Nivel:* %level [ %xp4levelup XP para subir de nivel ]
+┃✰ ➬ *XP:* %exp / %maxexp
+┃✰ ➬ *Total XP:* %totalexp
+╰━─━─━─≪𖣘≫─━─━─━╯
+╔──────¤◎¤──────╗
+┋#    ✦   *𝐈 N F O*
+╚──────¤◎¤──────╝
+╭━─━─━─≪𖣘≫─━─━─━╮
+┃✰ ➬ *Modo:* %mode
+┃✰ ➬ *Prefijo:* [ *%p* ]
+┃✰ ➬ *Uptime:* %uptime
+┃✰ ➬ *Usuarios registrados:* %totalreg
+╰━─━─━─≪𖣘≫─━─━─━╯
+   ⏤͟͟͞͞★Dark-Aiꗄ➺
+◆━━━━━━━▣✦▣━━━━━━━━◆ 
+%readmore
+`.trimStart(),
+  header: '╭─────⊹⊱≼「 *%category* 」≽⊰──────',
+  body: '┃❯ ✧▻ %cmd %islimit %isPremium\n',
+  footer: '╰───────────',
+  after: `© Dark Bot`,
+};
+
 let handler = async (m, { conn, usedPrefix: _p, __dirname }) => {
   try {
     const user = global.db?.data?.users?.[m.sender] || {};
@@ -55,10 +100,31 @@ let handler = async (m, { conn, usedPrefix: _p, __dirname }) => {
 
     const text = menu.replace(new RegExp(`%(${Object.keys(replace).join('|')})`, 'g'), (_, key) => replace[key] || '');
 
-    // Enviar solo texto del menú
-    await conn.reply(m.chat, text.trim(), m);
+    // Si quieres enviar una imagen, por ejemplo, desde un archivo local
+    const imagePath = join(__dirname, 'ruta_a_tu_imagen.jpg'); // Ajusta la ruta según tu archivo
+
+    // Envía la imagen primero
+    let sentMessage = await conn.sendMessage(m.chat, { image: { url: imagePath }, caption: text.trim() }, { quoted: m });
+
+    // Añadir una reacción al mensaje enviado (por ejemplo, 👍)
+    await conn.react(sentMessage.key.remoteJid, '👍'); // Reacción de un pulgar hacia arriba
+
   } catch (e) {
     console.error('Error al generar el menú:', e);
     await conn.reply(m.chat, '❎ Lo sentimos, ocurrió un error al generar el menú.', m);
   }
 };
+
+handler.command = ['allmenu', 'menucompleto', 'menú'];
+handler.register = false;
+export default handler;
+
+const more = String.fromCharCode(8206);
+const readMore = more.repeat(4001);
+
+function clockString(ms) {
+  const h = Math.floor(ms / 3600000);
+  const m = Math.floor(ms / 60000) % 60;
+  const s = Math.floor(ms / 1000) % 60;
+  return [h, m, s].map(v => v.toString().padStart(2, 0)).join(':');
+}
