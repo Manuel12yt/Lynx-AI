@@ -10,7 +10,8 @@ import axios from 'axios'
 
 global.owner = [
   ['51917154203', '👑 Lynx - AI', true],
-  ['51968382008', '👑 DarkCore', true]
+  ['51968382008', '👑 DarkCore', true],
+  ['50557865603', 'WillZek', true]
 ]
 
 global.redes = ""
