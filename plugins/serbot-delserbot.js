@@ -16,8 +16,9 @@ await parentw.sendMessage(m.chat, { text: "No cuentas con ninguna sesión de Sub
 } else {
 await m.react('✖️')
 }}}
-handler.tags = ['serbot']
+
 handler.help = ['delsession']
+handler.tags = ['user']
 handler.command = /^(deletesess?ion|eliminarsesion|borrarsesion|delsess?ion|cerrarsesion|delserbot|logout)$/i
 //handler.private = true
 handler.fail = null
