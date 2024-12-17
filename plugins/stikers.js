@@ -1,100 +1,50 @@
-import { sticker } from '../lib/sticker.js';
-//import { uploadImage, uploadFile } from '../lib/upload.js';
-
-const isUrl = (text) => {
-  return text.match(new RegExp(/https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&/=]*)(jpe?g|gif|png)/, 'gi'));
-};
-
-// Función para validar que una URL sea de imagen
-const isValidImageUrl = async (url) => {
-  try {
-    const res = await fetch(url);
-    const mime = res.headers.get('Content-Type');
-    return mime && mime.startsWith('image');
-  } catch (err) {
-    return false;
-  }
-};
-
+import { sticker } from '../lib/sticker.js'
+import uploadFile from '../lib/uploadFile.js'
+import uploadImage from '../lib/uploadImage.js'
+import { webp2png } from '../lib/webp2mp4.js'
 let handler = async (m, { conn, args, usedPrefix, command }) => {
-  let stiker = false;
-
+  let stiker = false
+  let username = conn.getName(m.sender)
   try {
-    let q = m.quoted ? m.quoted : m;
-    let mime = (q.msg || q).mimetype || q.mediaType || '';
-
-    // Verifica si es imagen, video o gif
+  	
+    let q = m.quoted ? m.quoted : m
+    let mime = (q.msg || q).mimetype || q.mediaType || ''
     if (/webp|image|video/g.test(mime)) {
-      if (/video/g.test(mime) && (q.msg || q).seconds > 8) {
-        return m.reply('❌ *El video no puede durar más de 8 segundos.*');
-      }
-
-      let img = await q.download?.();
-      if (!img || !Buffer.isBuffer(img)) {
-        return m.reply('🍁 *Por favor, envía primero una imagen o video para convertir en sticker.*');
-      }
-
+      if (/video/g.test(mime)) if ((q.msg || q).seconds > 11) return m.reply('Máximo *10* segundos')
+      let img = await q.download?.()
+      if (!img) return conn.reply(m.chat, `🚩 Responda a una *Imagen* o *Vídeo.*`, m, rcanal)
+      let out
       try {
-        stiker = await sticker(img, false, global.packname, global.author);
+        stiker = await sticker(img, false, global.packname, global.author)
       } catch (e) {
-        console.error('Error al generar el sticker:', e);
-      }
-
-      if (!stiker) {
-        let out;
-        if (/webp/g.test(mime)) out = await uploadFile(img);
-        else if (/image/g.test(mime)) out = await uploadImage(img);
-        else if (/video/g.test(mime)) out = await uploadFile(img);
-
-        if (typeof out !== 'string') out = await uploadImage(img);
-
-        stiker = await sticker(false, out, global.packname, global.author);
+        console.error(e)
+      } finally {
+        if (!stiker) {
+          if (/webp/g.test(mime)) out = await webp2png(img)
+          else if (/image/g.test(mime)) out = await uploadImage(img)
+          else if (/video/g.test(mime)) out = await uploadFile(img)
+          if (typeof out !== 'string') out = await uploadImage(img)
+          stiker = await sticker(false, out, global.packname, global.author)
+        }
       }
     } else if (args[0]) {
-      // Validar si el primer argumento es una URL válida
-      if (isUrl(args[0])) {
-        const validUrl = await isValidImageUrl(args[0]);
-        if (validUrl) {
-          stiker = await sticker(false, args[0], global.packname, global.author);
-        } else {
-          return m.reply('💫 *La URL proporcionada no es una imagen válida o no se puede acceder.*');
-        }
-      } else {
-        return m.reply('💫 El URL proporcionado no es válido.');
-      }
+      if (isUrl(args[0])) stiker = await sticker(false, args[0], global.packname, global.author)
+      else return m.reply('La *Url* es invalida')
     }
   } catch (e) {
-    console.error('Error general:', e);
-    stiker = null;
+    console.error(e)
+    if (!stiker) stiker = e
   } finally {
-    if (stiker) {
-      if (Buffer.isBuffer(stiker)) {
-        conn.sendFile(m.chat, stiker, 'sticker.webp', '', m, true, {
-          contextInfo: {
-            forwardingScore: 200,
-            isForwarded: false,
-            externalAdReply: {
-              showAdAttribution: false,
-              title: global.packname,
-              body: 'Sticker generado por CrowBot',
-              mediaType: 2,
-              sourceUrl: global.redes || '',
-              thumbnail: global.icono || null
-            }
-          }
-        });
-      } else {
-        console.error('Error: El sticker no es un buffer válido.');
-        conn.sendMessage(m.chat, '🌲 *La conversión de sticker falló. Intenta con otro archivo.*', { quoted: m });
-      }
-    } else {
-      conn.sendMessage(m.chat, '🌲 *No se pudo generar el sticker. Por favor, reintenta.*', { quoted: m });
-    }
+    if (stiker) conn.sendFile(m.chat, stiker, 'sticker.webp', '', m)
+    else return conn.reply(m.chat, '🚩 Responda a una *Imagen* o *Vídeo.*', m, rcanal)
   }
-};
+}
+handler.help = ['sticker']
+handler.tags = ['sticker']
+handler.command = ['s', 'sticker', 'stiker'] 
 
-handler.help = ['stiker *<img>*', 'sticker *<url>*'];
-handler.tags = ['group'];
-handler.command = ['s', 'sticker', 'stiker'];
+export default handler
 
-export default handler;
+const isUrl = (text) => {
+  return text.match(new RegExp(/https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&/=]*)(jpe?g|gif|png)/, 'gi'))
+}
