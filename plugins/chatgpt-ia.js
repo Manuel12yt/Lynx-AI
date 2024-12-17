@@ -31,7 +31,7 @@ let handler = async (m, { conn, text }) => {
 };
 
 handler.help = ['chatgpt *<texto>*'];
-handler.tags = ['ai'];
+handler.tags = ['tols'];
 handler.command = ['chatgpt', 'ai'];
 handler.limit = true;
 handler.register = true;
