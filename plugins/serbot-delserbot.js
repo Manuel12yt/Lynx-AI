@@ -18,7 +18,7 @@ await m.react('✖️')
 }}}
 
 handler.help = ['delsession']
-handler.tags = ['user']
+handler.tags = ['owner']
 handler.command = /^(deletesess?ion|eliminarsesion|borrarsesion|delsess?ion|cerrarsesion|delserbot|logout)$/i
 //handler.private = true
 handler.fail = null
