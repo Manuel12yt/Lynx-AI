@@ -10,9 +10,9 @@ let handler = async (m, { conn, text, usedPrefix, command, quoted }) => {
   }
 
   try {
-    if (!text && quoted) {
+    if (quoted) {
       const quotedMessage = quoted.text || quoted.caption;
-      if (quotedMessage && quotedMessage.includes('📎 *Enlace*:')) {
+      if (quotedMessage && quotedMessage.includes('📎 *Enlace*:') && /audio/i.test(text)) {
         const urlMatch = quotedMessage.match(/https?:\/\/[^\s]+/);
         if (urlMatch) {
           const url = urlMatch[0];
@@ -43,7 +43,7 @@ let handler = async (m, { conn, text, usedPrefix, command, quoted }) => {
 > - Para descargar responde a este mensaje con Video o Audio.
     `.trim();
 
-    conn.reply(m.chat, caption, m, rcanal);
+    conn.reply(m.chat, caption, m);
   } catch (error) {
     console.error(error);
     await m.react('⚠️');
