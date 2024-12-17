@@ -20,7 +20,7 @@ let handler = async (m, { conn }) => {
   cooldowns[m.sender] = Date.now()
 }
 handler.help = ['minar']
-handler.tags = ['fun']
+handler.tags = ['rpg']
 handler.command = ['minar', 'miming', 'mine'] 
 handler.register = true 
 export default handler
