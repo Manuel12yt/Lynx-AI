@@ -32,17 +32,17 @@ let handler = async (m, { conn, args, text, usedPrefix, command }) => {
   if (!searchQuery) {
     searchQuery = query[Math.floor(Math.random() * query.length)];
   } else {
-    m.reply(`👀 *Buscando videos sobre: ${searchQuery}*`);
+    m.reply(`👀 *Buscando videos sobre: ${searchQuery}*`,m,fake);
   }
 
   try {
-    const a = await tiktoks(searchQuery); // Llamada a la función que obtiene el video
-    console.log("Video obtenido:", a); // Log para ver los detalles del video
-    let cap = `🎥 *${a.title}*)`; // Adding music link and title
+    const a = await tiktoks(searchQuery);
+    console.log("Video obtenido:", a);
+    let cap = `🎥 *${a.title}*)`; 
     await conn.sendMessage(m.chat, { 
       video: { url: a.no_watermark }, 
       caption: cap, 
-      thumbnail: a.cover // Displaying the thumbnail image 
+      thumbnail: a.cover
     }, { quoted: m });
   } catch (err) {
     console.error("Error al obtener el video:", err); // Mejorar el registro de errores
