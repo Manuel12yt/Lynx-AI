@@ -29,7 +29,7 @@ const defaultMenu = {
 ╚──────¤◎¤──────╝
 ╭━─━─━─≪𖣘≫─━─━─━╮
 ┃✰ ➬ *Modo:* %mode
-┃✰ ➬ *Prefijo:* [ *%_p* ]
+┃✰ ➬ *Prefijo:* [ *%cmd* ]
 ┃✰ ➬ *Rutina:* %muptime 
 ┃✰ ➬ *Database:*  %totalreg
 ╰━─━─━─≪𖣘≫─━─━─━╯
@@ -117,7 +117,7 @@ let handler = async (m, { conn, usedPrefix: _p, __dirname }) => {
 
     const text = menu.replace(new RegExp(`%(${Object.keys(replace).join('|')})`, 'g'), (_, key) => replace[key] || '');
     await m.react('🌟');
-    await conn.sendFile(m.chat, imagen1, 'thumbnail.jpg', text.trim(), m,fake);
+    await conn.sendFile(m.chat, imagen1, 'thumbnail.jpg', text.trim(), m,rcanal);
 
   } catch (e) {
     console.error('Error al generar el menú:', e);
