@@ -117,7 +117,7 @@ let handler = async (m, { conn, usedPrefix: _p, __dirname }) => {
 
     const text = menu.replace(new RegExp(`%(${Object.keys(replace).join('|')})`, 'g'), (_, key) => replace[key] || '');
     await m.react('🌟');
-    await conn.sendFile(m.chat, imagen1, 'thumbnail.jpg', text.trim(), m);
+    await conn.sendFile(m.chat, imagen1, 'thumbnail.jpg', text.trim(), m,rcanal);
 
   } catch (e) {
     console.error('Error al generar el menú:', e);
