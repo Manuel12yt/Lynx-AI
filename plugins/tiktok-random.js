@@ -37,7 +37,6 @@ let handler = async (m, { conn, args, text, usedPrefix, command }) => {
 
   try {
     const a = await tiktoks(searchQuery);
-    console.log("Video obtenido:", a);
     let cap = `🎥 *${a.title}*)`; 
     await conn.sendMessage(m.chat, { 
       video: { url: a.no_watermark }, 
