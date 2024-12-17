@@ -17,8 +17,8 @@ Haz que 10 amigos o conocidos sigan el canal. Una vez que lo hagan, envíame una
 https://whatsapp.com/channel/
 `;
 
-handler.command = /^(tenerunbot)$/i;
-handler.tags = ['group'];
-handler.help = ['tenerunbot <el bot para tu grupo>'];
+handler.command = /^(tenerbot)$/i;
+handler.tags = ['serbot'];
+handler.help = ['tenerbot *<el bot para tu grupo>*'];
 
 export default handler;
