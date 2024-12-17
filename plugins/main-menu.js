@@ -38,7 +38,7 @@ const defaultMenu = {
 %readmore
 `.trimStart(),
   header: '╭─────⊹⊱≼「 *%category* 」≽⊰──────',
-  body: '┃❯ ✧▻ %cmd %islimit %isPremium\n',
+    body: '┃❯ ✧▻ %cmd %islimit %isPremium\n',
   footer: '╰─── ──⊹⊱≼≽⊰⊹══───═══╯',
   after: `© ${textbot}`,
 };
@@ -65,7 +65,7 @@ let handler = async (m, { conn, usedPrefix: _p, __dirname }) => {
     try {
       _package = JSON.parse(await promises.readFile(join(__dirname, '../package.json')));
     } catch {
-      _package = { name: 'Desconocido', description: 'No disponible', version: '0.0.0' };
+      _package = { name: 'Desconocido', description: 'No disponible', version: '1.0.0' };
     }
 
     // Preparar el menú
@@ -117,7 +117,7 @@ let handler = async (m, { conn, usedPrefix: _p, __dirname }) => {
 
     const text = menu.replace(new RegExp(`%(${Object.keys(replace).join('|')})`, 'g'), (_, key) => replace[key] || '');
     await m.react('🌟');
-    await conn.sendFile(m.chat, imagen1, 'thumbnail.jpg', text.trim(), m,rcanal);
+    await conn.reply(m.chat, imagen1, 'thumbnail.jpg', text.trim(), m,fake);
 
   } catch (e) {
     console.error('Error al generar el menú:', e);
