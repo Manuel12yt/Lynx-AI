@@ -1,6 +1,6 @@
 {
   "name": "Lynx-AI",
-  "version": "1.8.0",
+  "version": "1.0.0",
   "description": "Simple WhatsApp Bot Multi Device",
   "main": "index.js",
   "type": "module",
@@ -17,7 +17,7 @@
   },
   "homepage": "",
   "author": {
-    "name": "DARKCORE",
+    "name": ,
   },
   "repository": {
     "type": "git@github.com:Manuel12yt/Lynx-AI.git",
