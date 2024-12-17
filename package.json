@@ -76,9 +76,9 @@
     "url-regex-safe": "^3.0.0",
     "yargs": "^17.6.0",
     "yt-search": "^2.10.3",
-      "wa-sticker-formatter": "^4.3.2"
   },
   "optionalDependencies": {
     "moment-timezone": "^0.5.37",
+    "wa-sticker-formatter": "^4.3.2"
   }
 }
