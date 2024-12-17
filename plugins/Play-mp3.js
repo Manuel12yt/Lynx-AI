@@ -4,30 +4,32 @@ import fs from 'fs';
 import path from 'path';
 import NodeID3 from 'node-id3';
 
-let handler = async (m, { conn, text, usedPrefix, command, quoted }) => {
+let handler = async (m, { conn, text, command, quoted }) => {
   if (!text && !quoted) {
-    return conn.reply(m.chat, `❀ Ingresa el nombre de una canción o artista`, m, fake);
+    return conn.reply(m.chat, `❀ Ingresa el nombre de una canción o artista`, m);
   }
 
   try {
     if (quoted) {
       const quotedMessage = quoted.text || quoted.caption;
-      if (quotedMessage && quotedMessage.includes('📎 *Enlace*:') && /audio/i.test(text)) {
+      if (quotedMessage && /https?:\/\/[^\s]+/.test(quotedMessage)) {
         const urlMatch = quotedMessage.match(/https?:\/\/[^\s]+/);
-        if (urlMatch) {
+        const isAudioRequest = /audio/i.test(text);
+        if (urlMatch && isAudioRequest) {
           const url = urlMatch[0];
           await m.react('🕓');
-          return await processAudioDownload(m, conn, url); // Llamar función de descarga directa
+          return await processAudioDownload(m, conn, url); // Descargar audio
         }
       }
     }
 
     await m.react('🕓');
 
+    // Buscar en YouTube
     const searchResults = await ytSearch(text);
     if (!searchResults.videos.length) {
       await m.react('❌');
-      return conn.reply(m.chat, `❀ No se encontraron resultados para "${text}"`, m, fake);
+      return conn.reply(m.chat, `❀ No se encontraron resultados para "${text}"`, m);
     }
 
     const video = searchResults.videos[0];
@@ -40,18 +42,14 @@ let handler = async (m, { conn, text, usedPrefix, command, quoted }) => {
 📆 *Publicado hace*: ${ago}
 📎 *Enlace*: ${url}
 \n
-> - Para descargar responde a este mensaje con Video o Audio.
+> - Para descargar responde a este mensaje con "Audio" o "Video".
     `.trim();
 
     conn.reply(m.chat, caption, m);
   } catch (error) {
     console.error(error);
     await m.react('⚠️');
-    conn.reply(
-      m.chat,
-      `❀ Ocurrió un error al procesar tu solicitud.`,
-      m
-    );
+    conn.reply(m.chat, `❀ Ocurrió un error al procesar tu solicitud.`, m);
   }
 };
 
@@ -68,7 +66,11 @@ async function processAudioDownload(m, conn, url) {
       return conn.reply(m.chat, `❀ Ocurrió un error al intentar descargar el audio.`, m);
     }
 
-    const tempFile = path.resolve('./temp', `audio.mp3`);
+    // Crear la carpeta temp si no existe
+    const tempDir = './temp';
+    if (!fs.existsSync(tempDir)) fs.mkdirSync(tempDir);
+
+    const tempFile = path.resolve(tempDir, `audio.mp3`);
     const audioResponse = await fetch(audioUrl);
     const audioBuffer = await audioResponse.buffer();
     fs.writeFileSync(tempFile, audioBuffer);
