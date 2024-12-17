@@ -8,7 +8,7 @@ let uniqid = `${who.split`@`[0]}`
 let userS = `${conn.getName(who)}`
 
 try {
-await fs.rmdir("./serbot/" + uniqid, { recursive: true, force: true })
+await fs.rmdir("./LynxJadiBot/" + uniqid, { recursive: true, force: true })
 await parentw.sendMessage(m.chat, { text: '🚩 Sub-Bot eliminado.' }, { quoted: m })
 } catch(err) {
 if (err.code === 'ENOENT' && err.path === `./LynxJadiBot/${uniqid}`) {
