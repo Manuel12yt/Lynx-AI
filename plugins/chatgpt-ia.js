@@ -22,10 +22,21 @@ let handler = async (m, { conn, text }) => {
 
     const data = await response.json();
 
-    conn.reply(m.chat, `🤖 ${data.result}`, m, rcanal);
+    let result = data.result;
+
+    // Detectar si el texto está en inglés y traducirlo al español
+    const langApiUrl = `https://apis-starlights-team.koyeb.app/starlight/translate?text=${encodeURIComponent(result)}&to=es`;
+    const langResponse = await fetch(langApiUrl);
+    const langData = await langResponse.json();
+
+    if (langData && langData.translation) {
+      result = langData.translation;
+    }
+
+    conn.reply(m.chat, `🤖 ${result}`, m, rcanal);
 
   } catch {
-
+    
   }
 };
 
