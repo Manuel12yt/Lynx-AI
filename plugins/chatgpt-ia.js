@@ -12,15 +12,15 @@ let handler = async (m, { conn, text }) => {
       text
     )}`;
     const response = await fetch(apiUrl);
-    const data = await response.json();
+    const data = await response.text(); // Procesamos la respuesta como texto
 
-    if (!data || !data.response) {
+    if (!data) {
       await m.react('❌');
       return conn.reply(m.chat, `❀ No se pudo obtener una respuesta de la API.`, m);
     }
 
     await m.react('✅');
-    conn.reply(m.chat, `🤖 *Respuesta de la API*:\n\n${data.response}`, m);
+    conn.reply(m.chat, `🤖 *Respuesta de la API*:\n\n${data.replace(/\+/g, ' ')}`, m); // Reemplazamos los "+" por espacios
   } catch (error) {
     console.error(error);
     await m.react('⚠️');
@@ -33,7 +33,7 @@ let handler = async (m, { conn, text }) => {
 };
 
 handler.help = ['chatgpt *<texto>*'];
-handler.tags = ['tols'];
+handler.tags = ['ai'];
 handler.command = ['chatgpt', 'ai'];
 handler.limit = true;
 handler.register = true;
