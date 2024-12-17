@@ -29,6 +29,7 @@ let tags = {
     'owner': '`👑 Creador 👑`',
     'enable': '`🔗 Enable 🔗`',
     'rpg': '`🥷 Juegos RPG 🥷`',
+    'tols': '`🎫 Tools 🎫`',
   };
   
 
