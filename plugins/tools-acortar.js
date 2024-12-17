@@ -10,7 +10,7 @@ m.reply(done)
 await m.react('✖️')
 }}
 handler.help = ['acortar'].map((v) => v + ' *<url>*')
-handler.tags = ['tools']
+handler.tags = ['tols']
 handler.command = /^(tinyurl|short|acortar|corto)$/i;
 handler.fail = null
 handler.register = true 
