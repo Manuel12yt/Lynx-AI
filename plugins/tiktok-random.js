@@ -45,7 +45,6 @@ let handler = async (m, { conn, args, text, usedPrefix, command }) => {
       thumbnail: a.cover
     }, { quoted: m });
   } catch (err) {
-    console.error("Error al obtener el video:", err); // Mejorar el registro de errores
     m.reply('❌ *Error al obtener el video.* Intenta de nuevo.');
   }
 };
