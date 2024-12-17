@@ -25,6 +25,8 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
 👀 *Vistas*: ${views}
 📆 *Publicado hace*: ${ago}
 📎 *Enlace*: ${url}
+\n
+> 🤴 un momento se esta enviando 🤴
     `.trim();
 
     conn.reply(m.chat, caption, m, rcanal);
