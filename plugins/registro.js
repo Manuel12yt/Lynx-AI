@@ -30,7 +30,7 @@ let handler = async function (m, { conn, text, usedPrefix, command }) {
   await m.react('✅')
 }
 handler.help = ['reg'].map(v => v + ' *<nombre.edad>*')
-handler.tags = ['rg']
+handler.tags = ['user']
 
 handler.command = ['verify', 'reg', 'register', 'registrar'] 
 
