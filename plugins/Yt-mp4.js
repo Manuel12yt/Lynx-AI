@@ -16,7 +16,7 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
   } catch (error) {
     console.error(error);
     await m.react('❌');
-    conn.reply(m.chat, `❀ Ocurrió un error al intentar descargar el video. Inténtalo más tarde.`, m);
+    conn.reply(m.chat, `❀ error comando mal usado .ytmp4 *<url>*  `, m);
   }
 };
 
