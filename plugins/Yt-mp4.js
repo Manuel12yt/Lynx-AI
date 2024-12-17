@@ -10,7 +10,7 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
     let api = await (await fetch(`https://api.siputzx.my.id/api/d/ytmp4?url=${text}`)).json();
     let dl_url = api.data.dl;
 
-    await conn.reply(m.chat, dl_url, 'video.mp4',m,listo);
+    await conn.sendMessage(m.chat, { video: { url: dl_url }, caption: `✅ Aquí tienes tu video.` },{ quoted: m });
 
     await m.react('✅');
   } catch (error) {
