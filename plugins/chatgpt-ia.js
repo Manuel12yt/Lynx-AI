@@ -10,12 +10,11 @@ let handler = async (m, { conn, text }) => {
 
     const apiUrl = `https://apis-starlights-team.koyeb.app/starlight/chatgpt?text=${encodeURIComponent(text)}`;
 
-    // Configuramos un tiempo límite para la solicitud
     const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), 10000); // 10 segundos
+    const timeout = setTimeout(() => controller.abort(), 10000);
 
     const response = await fetch(apiUrl, { signal: controller.signal });
-    clearTimeout(timeout); // Limpiar el temporizador si la solicitud responde
+    clearTimeout(timeout);
 
     if (!response.ok) {
       throw new Error(`HTTP ${response.status}: ${response.statusText}`);
@@ -23,19 +22,10 @@ let handler = async (m, { conn, text }) => {
 
     const data = await response.json();
 
-    if (!data || !data.result) {
-      await m.react('❌');
-      return conn.reply(m.chat, `❀ No se pudo obtener una respuesta de la API.`, m, rcanal);
-    }
-
     conn.reply(m.chat, `🤖 ${data.result}`, m, rcanal);
-  } catch (error) {
-    console.error(error);
-    conn.reply(
-      m.chat,
-      `❀ Ocurrió un error al procesar tu solicitud. Por favor, inténtalo de nuevo más tarde.`,
-      m, rcanal
-    );
+
+  } catch {
+
   }
 };
 
