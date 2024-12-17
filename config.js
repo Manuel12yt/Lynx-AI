@@ -25,6 +25,8 @@ global.prems = []
 
 global.packname = `[ Sticker Maker ]`
 global.author = '🌠 DARK FLAPLY - OFC]'
+global.stickpack = '© LyzxBot'
+global.stickauth = 'By Dark-OFC'
 global.wait = '🚩 *Aɢᴜᴀʀᴅᴇ ᴜɴ ᴍᴏᴍᴇɴᴛᴏ, sᴏʏ ʟᴇɴᴛ𝙾... ฅ^•ﻌ•^ฅ*'
 global.botname = '[ Dark Ai WhatsApp Bot ]'
 global.textbot = `Lynx - AI`
