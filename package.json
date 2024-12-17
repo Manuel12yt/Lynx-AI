@@ -11,6 +11,7 @@
   },
   "scripts": {
     "start": "node index.js",
+    "start": "start.sh",
     "qr": "node index.js qr",
     "code": "node index.js code",
     "test": "node test.js"
