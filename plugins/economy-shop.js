@@ -19,7 +19,7 @@ const handler = async (m, {conn, command, args}) => {
   } else conn.reply(m.chat, `😔 Lo siento, no tienes suficiente *XP* para comprar *${count}* Yenes 💴`, m, rcanal);
 };
 handler.help = ['Buy', 'Buyall'];
-handler.tags = ['economy'];
+handler.tags = ['dinero'];
 handler.register = true
 handler.command = ['buy', 'buyall'];
 
