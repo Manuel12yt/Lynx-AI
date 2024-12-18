@@ -146,7 +146,7 @@ handler.before = async (m) => {
 };
 
 handler.help = ['prestar', 'pagar', 'deuda'].map((v) => v + ' [cantidad] [@tag]');
-handler.tags = ['economy'];
+handler.tags = ['dinero'];
 handler.command = ['prestar', 'pagar', 'deuda'];
 handler.disabled = false;
 handler.group = true;
