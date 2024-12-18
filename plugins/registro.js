@@ -1,3 +1,4 @@
+
 import { createHash } from 'crypto'
 import fs from 'fs'
 import fetch from 'node-fetch'
@@ -11,26 +12,26 @@ let handler = async function (m, { conn, text, usedPrefix, command }) {
   let [_, name, splitter, age] = text.match(Reg)
   if (!name) return m.reply('👻 El NOMBRE NO PUEDE ESTAR VACÍO.')
   if (!age) return m.reply('👻 LA EDAD NO PUEDE ESTAR VACÍA.')
-  if (name.length >= 100) return m.reply('🫥 El NOMBRE ESTA MUY LARGO.')
+  if (name.length >= 100) return m.reply('🫥 El NOMBRE ESTA MUY LARGO.' )
   age = parseInt(age)
   if (age > 100) return m.reply('👴🏻 WOW EL ABUELO QUIERE JUGAR AL BOT.')
-  if (age < 5) return m.reply('🚼 EL BEBE QUIERE JUGAR JAJA.')
+  if (age < 5) return m.reply('🚼 EL BEBE QUIERE JUGAR JAJA. ')
   user.name = name.trim()
   user.age = age
-  user.regTime = +new Date()
+  user.regTime = + new Date
   user.registered = true
   let sn = createHash('md5').update(m.sender).digest('hex')
-  let img = await (await fetch(`https://i.ibb.co/R6xxwRn/LynxAI.png`)).buffer()  // Corrected the URL here
-  let txt = ` –  *R E G I S T R O  -  L Y N X*\n\n`
+  let img = await (await fetch(`https://i.ibb.co/wCPxV2D/file.jpg`)).buffer()
+  let txt = ` –  *R E G I S T R O  -*\n\n`
       txt += `┌  ❄️  *NOMBRE* : ${name}\n`
       txt += `│  ❄️  *EDAD* : ${age} años\n`
       txt += `│  ❄️  *NUMERO DE SERIE*\n`
       txt += `└  ❄️  ${sn}`
-  await conn.sendFile(m.chat, botname, textbot, txt, img, img, canal, m,rcanal)
-  await m.react('✅')
+await conn.sendAi(m.chat, botname, textbot, txt, img, img, canal, m)
+await m.react('✅')
 }
 handler.help = ['reg'].map(v => v + ' *<nombre.edad>*')
-handler.tags = ['user']
+handler.tags = ['rg']
 
 handler.command = ['verify', 'reg', 'register', 'registrar'] 
 
