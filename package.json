@@ -45,6 +45,7 @@
     "form-data": "^4.0.0",
     "formdata-node": "^5.0.0",
     "g-i-s": "^2.1.6",
+    "ruhend-scraper": "^7.0.6",
     "google-it": "^1.6.4",
     "google-libphonenumber": "latest",
     "jsdom": "^20.0.1",
