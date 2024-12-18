@@ -31,6 +31,7 @@ let tags = {
     'rpg': '`🥷 Juegos RPG 🥷`',
     'tols': '`🎫 Tools 🎫`',
     'serbot': '`👁️ jadibots 👁️`',
+    'dinero': '`💸 economia 💸`',
   };
   
 
