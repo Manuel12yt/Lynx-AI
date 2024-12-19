@@ -306,7 +306,7 @@ const mainBotAuthFile = 'LynxAISession';
 try {
 const mainBot = await connectionUpdate(mainBotAuthFile);
 global.conns.push(mainBot);
-console.log(chalk.bold.greenBright(`🌠 Ai Crow conectado correctamente.`))
+console.log(chalk.bold.greenBright(`🌠 Lynx-Ai conectado correctamente.`))
 
 await connectSubBots();
 } catch (error) {
