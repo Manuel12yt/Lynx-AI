@@ -1,5 +1,5 @@
 const handler = async (m, { conn }) => {
-    m.reply(m.chat, `${global.text}`, m, rcanal);
+    m.reply(m.chat, `${global.text}`, m, fake);
 };
 
 global.text = `*¿QUIERES A LynxAI EN TU GRUPO?* 🔥
