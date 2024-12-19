@@ -1,5 +1,5 @@
 const handler = async (m, { conn }) => {
-    m.reply(m.chat, `${global.text}`, m, fake);
+    m.reply(m.chat, `${text}`, m, fake);
 };
 
 handler.command = /^(tenerbot2)$/i;
