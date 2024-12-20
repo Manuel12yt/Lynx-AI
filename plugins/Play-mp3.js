@@ -22,7 +22,15 @@ const handler = async (m, { conn, command, args, text }) => {
     }
 
     const video = ytPlay.videos[0];
-    const { title, url } = video;
+    const { title, url, timestamp, description, thumbnail } = video;
+
+    // Enviar la imagen, título y descripción
+    const descriptionText = `🎶 *Título:* ${title}\n⏳ *Duración:* ${timestamp}\n📝 *Descripción:* ${description || 'No disponible'}`;
+
+    await conn.sendMessage(m.chat, {
+      image: { url: thumbnail },
+      caption: descriptionText,
+    });
 
     // Descargar directamente el MP3
     const audioData = await getDownloadUrl(url);
