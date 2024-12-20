@@ -8,8 +8,7 @@ const handler = async (m, { conn, command, args, text }) => {
     return conn.reply(
       m.chat, 
       `🌸 *Ingrese el nombre de un video de YouTube*\n\nEjemplo: !${command} Enemy Tommee Profitt`, 
-      m, 
-      fake
+      m
     );
   }
 
@@ -19,7 +18,7 @@ const handler = async (m, { conn, command, args, text }) => {
     // Búsqueda en YouTube
     const ytPlay = await yts(text);
     if (!ytPlay.videos.length) {
-      return conn.reply(m.chat, '❌ No se encontraron resultados.', m, fake);
+      return conn.reply(m.chat, '❌ No se encontraron resultados.', m);
     }
 
     const video = ytPlay.videos[0];
@@ -27,18 +26,18 @@ const handler = async (m, { conn, command, args, text }) => {
 
     // Enviar la imagen, título y descripción
     const descriptionText = `🎶 *Título:* ${title}\n⏳ *Duración:* ${timestamp}\n📝 *Descripción:* ${description || 'No disponible'}`;
+    await conn.reply(m.chat, descriptionText, m);
 
-    await conn.reply(
-      m.chat, 
-      descriptionText, 
-      m, fake
-      { image: { url: thumbnail } }
-    );
+    // Enviar la imagen
+    await conn.sendMessage(m.chat, {
+      image: { url: thumbnail },
+      caption: descriptionText,
+    });
 
     // Descargar directamente el MP3
     const audioData = await getDownloadUrl(url);
     if (!audioData || !audioData.url) {
-      return conn.reply(m.chat, '❌ No se pudo obtener el enlace de descarga del MP3.', m, fake);
+      return conn.reply(m.chat, '❌ No se pudo obtener el enlace de descarga del MP3.', m);
     }
 
     const audioUrl = audioData.url;
@@ -66,7 +65,7 @@ const handler = async (m, { conn, command, args, text }) => {
   } catch (error) {
     await m.react('❌');
     console.error(error);
-    conn.reply(m.chat, '❌ *Hubo un error al procesar su solicitud.*', m, fake);
+    conn.reply(m.chat, '❌ *Hubo un error al procesar su solicitud.*', m);
   }
 };
 
