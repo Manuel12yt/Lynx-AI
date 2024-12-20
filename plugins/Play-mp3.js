@@ -1,6 +1,8 @@
 import fetch from 'node-fetch';
 import yts from 'yt-search';
 
+const LimitAud = 725 * 1024 * 1024; // 700MB
+
 const handler = async (m, { conn, command, args, text }) => {
   if (!text) {
     return conn.reply(
@@ -20,27 +22,32 @@ const handler = async (m, { conn, command, args, text }) => {
     }
 
     const video = ytPlay.videos[0];
-    const { title, url, thumbnail } = video;
+    const { title, url } = video;
 
-    // Texto informativo
-    const infoText = `*𔓕꯭𓏲 Crow Bot 𓏲꯭𔓕*
+    // Descargar directamente el MP3
+    const audioData = await getDownloadUrl(url);
+    if (!audioData || !audioData.url) {
+      return conn.reply(m.chat, '❌ No se pudo obtener el enlace de descarga del MP3.', m);
+    }
 
-📚 *Título*: ${title}
-🔗 *Enlace*: ${url}
+    const audioUrl = audioData.url;
+    const fileSize = audioData.bytes_size;
 
-📽 *Descargando el audio... Espere un momento...*`.trim();
+    // Si el archivo es grande, lo enviamos como documento
+    if (fileSize > LimitAud) {
+      return conn.sendMessage(m.chat, {
+        document: { url: audioUrl },
+        fileName: `${title}.mp3`,
+        mimetype: 'audio/mpeg',
+      });
+    }
+
+    // Enviar el archivo MP3 directamente
+    const audioResponse = await fetch(audioUrl);
+    const audioBuffer = await audioResponse.buffer();
 
     await conn.sendMessage(m.chat, {
-      image: { url: thumbnail },
-      caption: infoText,
-    });
-
-    // Obtener el enlace de descarga del MP3
-    const audioUrl = await getDownloadUrl(url, 'audio');
-
-    // Enviar directamente el archivo MP3
-    await conn.sendMessage(m.chat, {
-      audio: { url: audioUrl },
+      audio: audioBuffer,
       mimetype: 'audio/mpeg',
     });
 
@@ -53,21 +60,21 @@ const handler = async (m, { conn, command, args, text }) => {
 };
 
 // Función para obtener el URL de descarga
-async function getDownloadUrl(videoUrl, type) {
+async function getDownloadUrl(videoUrl) {
   try {
     const apiUrl = `https://deliriussapi-oficial.vercel.app/download/ytmp4?url=${encodeURIComponent(videoUrl)}`;
     const response = await fetch(apiUrl);
     const data = await response.json();
 
     if (!data.status) throw new Error('API no pudo obtener el enlace');
-    return type === 'audio' ? data.data.download.audio : data.data.download.video;
+    return data.data.download;
   } catch (error) {
-    console.error(`Error obteniendo URL de ${type}:`, error);
+    console.error('Error obteniendo URL de audio:', error);
     throw error;
   }
 }
 
-handler.help = ['play'];
+handler.help = ['play '];
 handler.tags = ['descargas'];
 handler.command = ['play'];
 handler.group = true;
