@@ -22,10 +22,11 @@ const handler = async (m, { conn, command, args, text }) => {
     const video = ytPlay.videos[0];
     const { title, url, timestamp, description, thumbnail } = video;
 
-    // Crear el mensaje de descripción del video
+    // Enviar la imagen, título y descripción
     const descriptionText = `🎶 *Título:* ${title}\n⏳ *Duración:* ${timestamp}\n📝 *Descripción:* ${description || 'No disponible'}`;
+    await conn.reply(m.chat, descriptionText, m);
 
-    // Enviar la imagen y la descripción en un solo mensaje
+    // Enviar la imagen
     await conn.sendMessage(m.chat, {
       image: { url: thumbnail },
       caption: descriptionText,
@@ -38,6 +39,16 @@ const handler = async (m, { conn, command, args, text }) => {
     }
 
     const audioUrl = audioData.url;
+    const fileSize = audioData.bytes_size;
+
+    // Reducir el tamaño de archivo permitido a 50MB
+    if (fileSize > 50 * 1024 * 1024) {  // 50MB
+      return conn.sendMessage(m.chat, {
+        document: { url: audioUrl },
+        fileName: `${title}.mp3`,
+        mimetype: 'audio/mpeg',
+      });
+    }
 
     // Enviar el archivo MP3 directamente
     const audioResponse = await fetch(audioUrl);
