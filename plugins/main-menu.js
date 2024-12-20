@@ -67,7 +67,7 @@ const defaultMenu = {
   header: '╭━─━─━─≪*%category*─━─━─━╮',
     body: '│❄️⃟🎄┊%cmd %islimit %isPremium\n',
   footer: '╰─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒',
-  after: `© ${textbot}`,
+  after: `> [ ✰ ] Powered By Dark Team`,
 }
 
 let handler = async (m, { conn, usedPrefix: _p, __dirname }) => {
