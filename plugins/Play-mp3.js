@@ -3,20 +3,30 @@ import yts from 'yt-search';
 
 const handler = async (m, { conn, command, args, text }) => {
   if (!text) {
-    return conn.reply(m.chat,`🌸 *Ingrese el nombre de un video de YouTube*\n\nEjemplo: !${command} Enemy Tommee Profitt`, m, rcanal);
+    return conn.reply(m.chat, `🌸 *Ingrese el nombre de un video de YouTube*\n\nEjemplo: !${command} Enemy Tommee Profitt`, m);
   }
 
-  await m.react('⏳'); 
+  await m.react('⏳');
 
   try {
+    const ytPlay = await yts(text);
+    if (!ytPlay.videos.length) {
+      return conn.reply(m.chat, '❌ No se encontraron resultados.', m);
+    }
+
     const video = ytPlay.videos[0];
     const { title, url, timestamp, description, thumbnail } = video;
-    const descriptionText = `🎶 *Título:* ${title}\n⏳ *Duración:* ${timestamp}\n`;
+    const descriptionText = `🎶 *Título:* ${title}\n⏳ *Duración:* ${timestamp}\n📝 *Descripción:* ${description || 'No disponible'}`;
     
     await conn.sendMessage(m.chat, {
       image: { url: thumbnail },
       caption: descriptionText,
-    }, { qu});
+    });
+
+    const audioData = await getDownloadUrl(url);
+    if (!audioData || !audioData.url) {
+      return conn.reply(m.chat, '❌ No se pudo obtener el enlace de descarga del MP3.', m);
+    }
 
     const audioUrl = audioData.url;
     const fileSize = audioData.bytes_size;
@@ -28,7 +38,6 @@ const handler = async (m, { conn, command, args, text }) => {
         mimetype: 'audio/mpeg',
       });
     } else {
-      // Enviar el archivo MP3 directamente
       const audioResponse = await fetch(audioUrl);
       const audioBuffer = await audioResponse.buffer();
 
@@ -41,10 +50,11 @@ const handler = async (m, { conn, command, args, text }) => {
     await m.react('✅');
   } catch (error) {
     await m.react('❌');
+    console.error(error);
+    conn.reply(m.chat, '❌ *Hubo un error al procesar su solicitud.*', m);
   }
 };
 
-// Función para obtener el URL de descarga
 async function getDownloadUrl(videoUrl) {
   try {
     const apiUrl = `https://deliriussapi-oficial.vercel.app/download/ytmp4?url=${encodeURIComponent(videoUrl)}`;
@@ -55,6 +65,7 @@ async function getDownloadUrl(videoUrl) {
     return data.data.download;
   } catch (error) {
     console.error('Error obteniendo URL de audio:', error);
+    throw error;
   }
 }
 
