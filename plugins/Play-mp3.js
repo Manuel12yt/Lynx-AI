@@ -5,11 +5,7 @@ const LimitAud = 725 * 1024 * 1024; // 700MB
 
 const handler = async (m, { conn, command, args, text }) => {
   if (!text) {
-    return conn.reply(
-      m.chat,
-      `🌸 *Ingrese el nombre de un video de YouTube*\n\nEjemplo: !${command} Enemy Tommee Profitt`,
-      m
-    );
+    return conn.reply(m.chat,`🌸 *Ingrese el nombre de un video de YouTube*\n\nEjemplo: !${command} Enemy Tommee Profitt`,m,rcanal);
   }
 
   await m.react('⏳'); // Indicador de espera
@@ -27,7 +23,7 @@ const handler = async (m, { conn, command, args, text }) => {
     // Enviar la imagen, título y descripción
     const descriptionText = `🎶 *Título:* ${title}\n⏳ *Duración:* ${timestamp}\n📝 *Descripción:* ${description || 'No disponible'}`;
 
-    await conn.sendMessage(m.chat, {
+    await conn.sendMessage(m.chat, m, rcanal {
       image: { url: thumbnail },
       caption: descriptionText,
     });
