@@ -51,3 +51,11 @@ module.exports = async function (anita, msg, args) {
         anita.sendMessage(msg.from, { text: 'Hubo un error al procesar tu solicitud. Por favor, intenta nuevamente.' });
     }
 };
+
+handler.help = ['play '];
+handler.tags = ['descargas'];
+handler.command = ['play']
+handler.group = true;
+
+export default handler;
+
