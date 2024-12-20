@@ -1,5 +1,9 @@
+import fs from 'fs';
 import ytSearch from 'yt-search';
 import fetch from 'node-fetch';
+import { promisify } from 'util';
+
+const writeFile = promisify(fs.writeFile);
 
 let handler = async (m, { conn, text }) => {
   if (!text) {
@@ -44,22 +48,25 @@ let handler = async (m, { conn, text }) => {
       return conn.reply(m.chat, `❀ Ocurrió un error al intentar descargar el audio.`, m);
     }
 
-    // Comprobar el tamaño del archivo de audio
-    const headResponse = await fetch(audioUrl, { method: 'HEAD' });
-    const fileSize = headResponse.headers.get('content-length');
+    // Descargar el archivo de audio
+    const audioResponse = await fetch(audioUrl);
+    const audioBuffer = await audioResponse.buffer();
+    
+    // Guardar temporalmente el archivo en el sistema
+    const audioPath = './temp_audio.mp3';
+    await writeFile(audioPath, audioBuffer);
 
-    if (fileSize > 5000000) { // Límite de 5MB (ajústalo según tus necesidades)
-      return conn.reply(m.chat, '❀ El archivo de audio es demasiado grande para ser enviado.', m);
-    }
-
-    // Enviar el archivo de audio
+    // Enviar el archivo de audio descargado
     await conn.sendMessage(
       m.chat,
-      { audio: { url: audioUrl }, mimetype: 'audio/mpeg', ptt: false }, // 'audio/mpeg' si es MP3
+      { audio: { url: audioPath }, mimetype: 'audio/mpeg', ptt: false }, 
       { quoted: m }
     );
-    
+
+    // Eliminar el archivo temporal después de enviarlo
+    fs.unlinkSync(audioPath);
     await m.react('✅');
+
   } catch (error) {
     console.error('Error al procesar la solicitud:', error);
     await m.react('⚠️');
