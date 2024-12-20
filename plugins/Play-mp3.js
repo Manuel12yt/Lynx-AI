@@ -5,7 +5,12 @@ const LimitAud = 725 * 1024 * 1024; // 700MB
 
 const handler = async (m, { conn, command, args, text }) => {
   if (!text) {
-    return conn.reply(m.chat,`🌸 *Ingrese el nombre de un video de YouTube*\n\nEjemplo: !${command} Enemy Tommee Profitt`,m, fake);
+    return conn.reply(
+      m.chat, 
+      `🌸 *Ingrese el nombre de un video de YouTube*\n\nEjemplo: !${command} Enemy Tommee Profitt`, 
+      m, 
+      fake
+    );
   }
 
   await m.react('⏳'); // Indicador de espera
@@ -14,24 +19,26 @@ const handler = async (m, { conn, command, args, text }) => {
     // Búsqueda en YouTube
     const ytPlay = await yts(text);
     if (!ytPlay.videos.length) {
-      return conn.reply(m.chat, '❌ No se encontraron resultados.', m);
+      return conn.reply(m.chat, '❌ No se encontraron resultados.', m, fake);
     }
 
     const video = ytPlay.videos[0];
     const { title, url, timestamp, description, thumbnail } = video;
 
     // Enviar la imagen, título y descripción
-    const descriptionText = `🎶 *Título:* ${title}\n⏳ *Duración:* ${timestamp}\n📝`;
+    const descriptionText = `🎶 *Título:* ${title}\n⏳ *Duración:* ${timestamp}\n📝 *Descripción:* ${description || 'No disponible'}`;
 
-    await conn.sendMessage(m.chat{
-      image: { url: thumbnail },
-      caption: descriptionText,
-    });
+    await conn.reply(
+      m.chat, 
+      descriptionText, 
+      m, fake
+      { image: { url: thumbnail } }
+    );
 
     // Descargar directamente el MP3
     const audioData = await getDownloadUrl(url);
     if (!audioData || !audioData.url) {
-      return conn.reply(m.chat, '❌ No se pudo obtener el enlace de descarga del MP3.', m);
+      return conn.reply(m.chat, '❌ No se pudo obtener el enlace de descarga del MP3.', m, fake);
     }
 
     const audioUrl = audioData.url;
@@ -59,7 +66,7 @@ const handler = async (m, { conn, command, args, text }) => {
   } catch (error) {
     await m.react('❌');
     console.error(error);
-    conn.reply(m.chat, '❌ *Hubo un error al procesar su solicitud.*', m);
+    conn.reply(m.chat, '❌ *Hubo un error al procesar su solicitud.*', m, fake);
   }
 };
 
