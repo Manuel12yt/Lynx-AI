@@ -1,8 +1,6 @@
 import fetch from 'node-fetch';
 import yts from 'yt-search';
 
-const LimitAud = 725 * 1024 * 1024; // 700MB
-
 const handler = async (m, { conn, command, args, text }) => {
   if (!text) {
     return conn.reply(
@@ -24,11 +22,10 @@ const handler = async (m, { conn, command, args, text }) => {
     const video = ytPlay.videos[0];
     const { title, url, timestamp, description, thumbnail } = video;
 
-    // Enviar la imagen, título y descripción
+    // Crear el mensaje de descripción del video
     const descriptionText = `🎶 *Título:* ${title}\n⏳ *Duración:* ${timestamp}\n📝 *Descripción:* ${description || 'No disponible'}`;
-    await conn.reply(m.chat, descriptionText, m);
 
-    // Enviar la imagen
+    // Enviar la imagen y la descripción en un solo mensaje
     await conn.sendMessage(m.chat, {
       image: { url: thumbnail },
       caption: descriptionText,
@@ -41,16 +38,6 @@ const handler = async (m, { conn, command, args, text }) => {
     }
 
     const audioUrl = audioData.url;
-    const fileSize = audioData.bytes_size;
-
-    // Si el archivo es grande, lo enviamos como documento
-    if (fileSize > LimitAud) {
-      return conn.sendMessage(m.chat, {
-        document: { url: audioUrl },
-        fileName: `${title}.mp3`,
-        mimetype: 'audio/mpeg',
-      });
-    }
 
     // Enviar el archivo MP3 directamente
     const audioResponse = await fetch(audioUrl);
