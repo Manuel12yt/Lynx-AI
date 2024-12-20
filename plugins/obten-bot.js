@@ -10,7 +10,7 @@ Haz que 10 amigos o conocidos sigan el canal. Una vez que lo hagan, envíame una
 
 *Envia las capturas a este número:* +51968382008.
 
-*Si no te responden en ese número, únete al siguiente grupo:* https://chat.whatsapp.com/HXJWm03iLG19F89PPWE7mO
+*Si no te responden en ese número, únete al siguiente grupo:* https://chat.whatsapp.com/GeG37GL5j4m7oCO2ONzOuk
 
 *Link de canal que deben seguir:* 👇
 
