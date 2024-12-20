@@ -1,4 +1,3 @@
-
 import { promises } from 'fs'
 import { join } from 'path'
 import fetch from 'node-fetch'
@@ -66,7 +65,7 @@ const defaultMenu = {
 `.trimStart(),
   header: '╭━─━─━─≪*%category*─━─━─━╮',
     body: '│❄️⃟🎄┊%cmd %islimit %isPremium\n',
-  footer: '╰─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒',
+  footer: '╰━─━─━─≪𖣘≫─━─━─━╯,
   after: `> [ ✰ ] Powered By Dark Team`,
 }
 
