@@ -1,61 +1,75 @@
-const axios = require('axios');
-const yts = require('yt-search');
+import fetch from 'node-fetch';
+import yts from 'yt-search';
 
-module.exports = async function (anita, msg, args) {
-    try {
-        if (args.length === 0) {
-            return anita.sendMessage(msg.from, { text: 'Por favor, proporciona el texto para buscar en YouTube.' });
-        }
+const handler = async (m, { conn, command, args, text }) => {
+  if (!text) {
+    return conn.reply(
+      m.chat,
+      `🌸 *Ingrese el nombre de un video de YouTube*\n\nEjemplo: !${command} Enemy Tommee Profitt`,
+      m
+    );
+  }
 
-        // Realizar búsqueda en YouTube
-        const searchQuery = args.join(' ');
-        const searchResults = await yts(searchQuery);
+  await m.react('⏳'); // Indicador de espera
 
-        if (!searchResults || searchResults.videos.length === 0) {
-            return anita.sendMessage(msg.from, { text: 'No se encontraron resultados en YouTube.' });
-        }
-
-        // Obtener el primer resultado
-        const video = searchResults.videos[0];
-        const videoUrl = video.url;
-
-        // Consultar la API para obtener los datos del video
-        const apiUrl = `https://deliriussapi-oficial.vercel.app/download/ytmp3?url=${encodeURIComponent(videoUrl)}`;
-        const apiResponse = await axios.get(apiUrl);
-
-        if (!apiResponse.data.status || !apiResponse.data.data.download.url) {
-            return anita.sendMessage(msg.from, { text: 'No se pudo obtener el enlace de descarga del MP3.' });
-        }
-
-        const { image_max_resolution, download } = apiResponse.data.data;
-        const { url: downloadUrl, size } = download;
-
-        // Enviar detalles del video
-        await anita.sendMessage(msg.from, {
-            image: { url: image_max_resolution },
-            caption: `🎧 *${video.title}*\n📦 *Tamaño*: ${size}\n🔗 *Enlace*: ${videoUrl}`,
-        });
-
-        // Descargar el MP3
-        const audioResponse = await axios.get(downloadUrl, { responseType: 'arraybuffer' });
-
-        // Enviar el archivo MP3
-        await anita.sendMessage(msg.from, {
-            audio: { buffer: audioResponse.data },
-            mimetype: 'audio/mpeg',
-        });
-
-        console.log('MP3 enviado correctamente.');
-    } catch (error) {
-        console.error('Error al procesar el comando:', error.message);
-        anita.sendMessage(msg.from, { text: 'Hubo un error al procesar tu solicitud. Por favor, intenta nuevamente.' });
+  try {
+    // Búsqueda en YouTube
+    const ytPlay = await yts(text);
+    if (!ytPlay.videos.length) {
+      return conn.reply(m.chat, '❌ No se encontraron resultados.', m);
     }
+
+    const video = ytPlay.videos[0];
+    const { title, url, thumbnail } = video;
+
+    // Texto informativo
+    const infoText = `*𔓕꯭𓏲 Crow Bot 𓏲꯭𔓕*
+
+📚 *Título*: ${title}
+🔗 *Enlace*: ${url}
+
+📽 *Descargando el audio... Espere un momento...*`.trim();
+
+    await conn.sendMessage(m.chat, {
+      image: { url: thumbnail },
+      caption: infoText,
+    });
+
+    // Obtener el enlace de descarga del MP3
+    const audioUrl = await getDownloadUrl(url, 'audio');
+
+    // Enviar directamente el archivo MP3
+    await conn.sendMessage(m.chat, {
+      audio: { url: audioUrl },
+      mimetype: 'audio/mpeg',
+    });
+
+    await m.react('✅');
+  } catch (error) {
+    await m.react('❌');
+    console.error(error);
+    conn.reply(m.chat, '❌ *Hubo un error al procesar su solicitud.*', m);
+  }
 };
 
-handler.help = ['play '];
+// Función para obtener el URL de descarga
+async function getDownloadUrl(videoUrl, type) {
+  try {
+    const apiUrl = `https://deliriussapi-oficial.vercel.app/download/ytmp4?url=${encodeURIComponent(videoUrl)}`;
+    const response = await fetch(apiUrl);
+    const data = await response.json();
+
+    if (!data.status) throw new Error('API no pudo obtener el enlace');
+    return type === 'audio' ? data.data.download.audio : data.data.download.video;
+  } catch (error) {
+    console.error(`Error obteniendo URL de ${type}:`, error);
+    throw error;
+  }
+}
+
+handler.help = ['play'];
 handler.tags = ['descargas'];
-handler.command = ['play']
+handler.command = ['play'];
 handler.group = true;
 
 export default handler;
-
