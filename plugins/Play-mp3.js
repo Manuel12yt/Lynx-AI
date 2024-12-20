@@ -41,23 +41,24 @@ const handler = async (m, { conn, command, args, text }) => {
     const audioUrl = audioData.url;
     const fileSize = audioData.bytes_size;
 
-    // Reducir el tamaño de archivo permitido a 50MB
+    // Si el archivo es grande, lo enviamos como documento, si no lo enviamos como audio directamente
     if (fileSize > 50 * 1024 * 1024) {  // 50MB
+      // Enviar el archivo como documento
       return conn.sendMessage(m.chat, {
         document: { url: audioUrl },
         fileName: `${title}.mp3`,
         mimetype: 'audio/mpeg',
       });
+    } else {
+      // Enviar el archivo MP3 directamente
+      const audioResponse = await fetch(audioUrl);
+      const audioBuffer = await audioResponse.buffer();
+
+      await conn.sendMessage(m.chat, {
+        audio: audioBuffer,
+        mimetype: 'audio/mpeg',
+      });
     }
-
-    // Enviar el archivo MP3 directamente
-    const audioResponse = await fetch(audioUrl);
-    const audioBuffer = await audioResponse.buffer();
-
-    await conn.sendMessage(m.chat, {
-      audio: audioBuffer,
-      mimetype: 'audio/mpeg',
-    });
 
     await m.react('✅');
   } catch (error) {
