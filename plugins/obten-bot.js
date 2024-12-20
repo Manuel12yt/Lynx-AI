@@ -14,7 +14,7 @@ Haz que 10 amigos o conocidos sigan el canal. Una vez que lo hagan, envíame una
 
 *Link de canal que deben seguir:* 👇
 
-https://whatsapp.com/channel/
+https://whatsapp.com/channel/0029Vaxb5xr7z4koGtOAAc1Q
 `;
 
 handler.command = /^(tenerbot)$/i;
