@@ -1,123 +1,53 @@
-import { youtubedl, youtubedlv2 } from '@bochilteam/scraper';
-import fetch from 'node-fetch';
-import yts from 'yt-search';
+const axios = require('axios');
+const yts = require('yt-search');
 
-const LimitAud = 725 * 1024 * 1024; // 700MB
-const LimitVid = 425 * 1024 * 1024; // 425MB
+module.exports = async function (anita, msg, args) {
+    try {
+        if (args.length === 0) {
+            return anita.sendMessage(msg.from, { text: 'Por favor, proporciona el texto para buscar en YouTube.' });
+        }
 
-const handler = async (m, { conn, command, args, text }) => {
-  if (!text) {
-    return conn.reply(
-      m.chat,
-      `🌸 *Ingrese el nombre de un video de YouTube*\n\nEjemplo: !${command} Enemy Tommee Profitt`,
-      m
-    );
-  }
+        // Realizar búsqueda en YouTube
+        const searchQuery = args.join(' ');
+        const searchResults = await yts(searchQuery);
 
-  await m.react('⏳'); // Indicador de espera
+        if (!searchResults || searchResults.videos.length === 0) {
+            return anita.sendMessage(msg.from, { text: 'No se encontraron resultados en YouTube.' });
+        }
 
-  try {
-    // Búsqueda en YouTube
-    const ytPlay = await yts(text);
-    if (!ytPlay.videos.length) {
-      return conn.reply(m.chat, '❌ No se encontraron resultados.', m);
-    }
+        // Obtener el primer resultado
+        const video = searchResults.videos[0];
+        const videoUrl = video.url;
 
-    const video = ytPlay.videos[0];
-    const { title, ago, duration, views, author, url, thumbnail } = video;
+        // Consultar la API para obtener los datos del video
+        const apiUrl = `https://deliriussapi-oficial.vercel.app/download/ytmp3?url=${encodeURIComponent(videoUrl)}`;
+        const apiResponse = await axios.get(apiUrl);
 
-    // Texto informativo
-    const infoText = `
-*𔓕꯭𓏲 Crow Bot 𓏲꯭𔓕*
+        if (!apiResponse.data.status || !apiResponse.data.data.download.url) {
+            return anita.sendMessage(msg.from, { text: 'No se pudo obtener el enlace de descarga del MP3.' });
+        }
 
-📚 *Título*: ${title}
-📆 *Publicado*: ${ago}
-🕒 *Duración*: ${duration.timestamp}
-👀 *Vistas*: ${views}
-👤 *Autor*: ${author.name}
-🔗 *Enlace*: ${url}
+        const { image_max_resolution, download } = apiResponse.data.data;
+        const { url: downloadUrl, size } = download;
 
-📽 *Descargando su ${command === 'paudio' ? 'audio' : 'video'}... Espere un momento...*`.trim();
-
-    await conn.sendMessage(m.chat, {
-      image: { url: thumbnail },
-      caption: infoText,
-    });
-
-    // Descarga y envío
-    if (command === 'paudio' || command === 'mp3') {
-      const audioUrl = await getDownloadUrl(url, 'audio');
-      const fileSize = await getFileSize(audioUrl);
-
-      if (fileSize > LimitAud) {
-        return conn.sendMessage(m.chat, {
-          document: { url: audioUrl },
-          fileName: `${title}.mp3`,
-          mimetype: 'audio/mpeg',
+        // Enviar detalles del video
+        await anita.sendMessage(msg.from, {
+            image: { url: image_max_resolution },
+            caption: `🎧 *${video.title}*\n📦 *Tamaño*: ${size}\n🔗 *Enlace*: ${videoUrl}`,
         });
-      }
 
-      await conn.sendMessage(m.chat, {
-        audio: { url: audioUrl },
-        mimetype: 'audio/mpeg',
-      });
-    } else if (command === 'pvideo' || command === 'mp4') {
-      const videoUrl = await getDownloadUrl(url, 'video');
-      const fileSize = await getFileSize(videoUrl);
+        // Descargar el MP3
+        const audioResponse = await axios.get(downloadUrl, { responseType: 'arraybuffer' });
 
-      if (fileSize > LimitVid) {
-        return conn.sendMessage(m.chat, {
-          document: { url: videoUrl },
-          fileName: `${title}.mp4`,
-          mimetype: 'video/mp4',
+        // Enviar el archivo MP3
+        await anita.sendMessage(msg.from, {
+            audio: { buffer: audioResponse.data },
+            mimetype: 'audio/mpeg',
         });
-      }
 
-      await conn.sendMessage(m.chat, {
-        video: { url: videoUrl },
-        caption: `🌷 Aquí está tu video.`,
-        fileName: `${title}.mp4`,
-        thumbnail,
-      });
+        console.log('MP3 enviado correctamente.');
+    } catch (error) {
+        console.error('Error al procesar el comando:', error.message);
+        anita.sendMessage(msg.from, { text: 'Hubo un error al procesar tu solicitud. Por favor, intenta nuevamente.' });
     }
-
-    await m.react('✅');
-  } catch (error) {
-    await m.react('❌');
-    console.error(error);
-    conn.reply(m.chat, '❌ *Hubo un error al procesar su solicitud.*', m);
-  }
 };
-
-// Función para obtener el URL de descarga
-async function getDownloadUrl(videoUrl, type) {
-  try {
-    const apiUrl = `https://deliriussapi-oficial.vercel.app/download/ytmp4?url=${encodeURIComponent(videoUrl)}`;
-    const response = await fetch(apiUrl);
-    const data = await response.json();
-
-    if (!data.status) throw new Error('API no pudo obtener el enlace');
-    return type === 'audio' ? data.data.download.audio : data.data.download.video;
-  } catch (error) {
-    console.error(`Error obteniendo URL de ${type}:`, error);
-    throw error;
-  }
-}
-
-// Función para calcular el tamaño del archivo
-async function getFileSize(url) {
-  try {
-    const response = await fetch(url, { method: 'HEAD' });
-    return parseInt(response.headers.get('content-length') || '0');
-  } catch (error) {
-    console.error('Error obteniendo tamaño del archivo:', error);
-    return 0;
-  }
-}
-
-handler.help = ['paudio', 'pvideo', 'pdoc', 'pdoc2', 'playdoc'];
-handler.tags = ['descargas'];
-handler.command = ['paudio', 'pvideo', 'pdoc', 'pdoc2', 'mp32', 'mp42', 'playdoc', 'playdoc2']
-handler.group = true;
-
-export default handler;
