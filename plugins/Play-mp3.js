@@ -24,8 +24,7 @@ const handler = async (m, { conn, command, args, text }) => {
 
     // Enviar la imagen, título y descripción
     const descriptionText = `🎶 *Título:* ${title}\n⏳ *Duración:* ${timestamp}\n📝 *Descripción:* ${description || 'No disponible'}`;
-    await conn.reply(m.chat, descriptionText, m);
-
+    
     // Enviar la imagen
     await conn.sendMessage(m.chat, {
       image: { url: thumbnail },
