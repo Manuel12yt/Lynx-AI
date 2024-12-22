@@ -9,4 +9,5 @@ handler.help = ['desbanearbot']
 handler.tags = ['group']
 handler.command = ['desbanearbot', 'unbanchat']
 handler.group = true 
+handler.rowner = true;
 export default handler
