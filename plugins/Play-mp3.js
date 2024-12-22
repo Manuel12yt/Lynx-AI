@@ -37,7 +37,7 @@ thumbnail: thumb, renderLargerThumbnail: true,
 await conn.reply(m.chat, HS, m, JT)
 
 try {
-let api = await fetch(https://api.zenkey.my.id/api/download/ytmp3?apikey=zenkey&url=${url});
+let api = await fetch(`https://api.zenkey.my.id/api/download/ytmp3?apikey=zenkey&url=${url}`);
 let json = await api.json()
 let { download } = json.result
 
