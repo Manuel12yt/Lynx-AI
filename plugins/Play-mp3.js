@@ -3,9 +3,8 @@ import fetch from "node-fetch";
 import yts from "yt-search";
 
 let handler = async (m, { conn, text }) => {
-if (!text) {
-return m.reply("❀ Ingresa el texto de lo que quieres buscar",m,fake)
-}
+
+if (!text) return conn.reply(m.chat, `❀ Ingresa un link de YouTube válido`, m,rcanal);
 
 let ytres = await yts(text)
 let video = ytres.videos[0]
