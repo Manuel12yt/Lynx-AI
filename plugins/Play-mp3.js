@@ -33,7 +33,7 @@ mediaUrl: url, sourceUrl: url,
 thumbnail: thumb, renderLargerThumbnail: true,
 }}}
 
-await conn.reply(m.chat, HS, m, JT,fake)
+await conn.reply(m.chat, HS,m,rcanal,JT)
 
 try {
 let api = await fetch(`https://api.zenkey.my.id/api/download/ytmp3?apikey=zenkey&url=${url}`);
