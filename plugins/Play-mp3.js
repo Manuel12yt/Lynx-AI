@@ -4,7 +4,7 @@ import yts from "yt-search";
 
 let handler = async (m, { conn, text }) => {
 if (!text) {
-return m.reply("❀ Ingresa el texto de lo que quieres buscar")
+return m.reply("❀ Ingresa el texto de lo que quieres buscar",m,fake)
 }
 
 let ytres = await yts(text)
@@ -34,7 +34,7 @@ mediaUrl: url, sourceUrl: url,
 thumbnail: thumb, renderLargerThumbnail: true,
 }}}
 
-await conn.reply(m.chat, HS, m, JT)
+await conn.reply(m.chat, HS, m, JT,fake)
 
 try {
 let api = await fetch(`https://api.zenkey.my.id/api/download/ytmp3?apikey=zenkey&url=${url}`);
