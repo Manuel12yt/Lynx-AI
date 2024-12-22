@@ -41,7 +41,7 @@ let json = await api.json()
 let { download } = json.result
 
 await conn.sendMessage(m.chat, { audio: { url: download.url }, caption: ``, mimetype: "audio/mpeg", }, { quoted: m })
-    await m.react('');
+await m.react('✅');
 } catch (error) {
 console.error(error)    
 }}
