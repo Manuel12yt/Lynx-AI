@@ -4,7 +4,7 @@ import yts from "yt-search";
 
 let handler = async (m, { conn, text }) => {
     if (!text) {
-        return conn.reply(m.chat, "❀ Ingresa un link de YouTube válido", m, rcanal);
+        return conn.reply(m.chat, "❀ Ingresa un link de YouTube válido", m);
     }
 
     await m.react("🕓");
@@ -52,23 +52,26 @@ let handler = async (m, { conn, text }) => {
             },
         };
 
-        await conn.reply(m.chat, HS, m, rcanal, JT);
+        await conn.reply(m.chat, HS, m, JT);
 
         // Descargar audio desde la API
         try {
-            let api = await fetch(`https://api.zenkey.my.id/api/download/ytmp3?apikey=zenkey&url=${url}`);
-            let json = await api.json();
+            let apiResponse = await fetch(`https://api.zenkey.my.id/api/download/ytmp3?apikey=zenkey&url=${url}`);
+            let json = await apiResponse.json();
 
             if (!json.result || !json.result.download) {
                 throw new Error("No se encontró la propiedad 'download' en la respuesta de la API.");
             }
 
-            let { download } = json.result;
+            let downloadLink = json.result.download;
+            if (typeof downloadLink !== "string" || !downloadLink.startsWith("http")) {
+                throw new Error("El enlace de descarga no es válido.");
+            }
 
             // Enviar el audio
             await conn.sendMessage(
                 m.chat,
-                { audio: { url: download }, mimetype: "audio/mpeg" },
+                { audio: { url: downloadLink }, mimetype: "audio/mpeg" },
                 { quoted: m }
             );
             await m.react("✅");
