@@ -3,7 +3,7 @@ import yts from 'yt-search';
 
 const handler = async (m, { conn, command, args, text }) => {
   if (!text) {
-    return conn.reply(m.chat, `🌸 *Ingrese el nombre de un video de YouTube*\n\nEjemplo: !${command} Enemy Tommee Profitt`, m);
+    return conn.reply(m.chat, `🌸 *Ingrese el nombre de un video de YouTube*\n\nEjemplo: !${command} Enemy Tommee Profitt`, m,fake,rcanal);
   }
 
   await m.react('⏳');
@@ -11,7 +11,7 @@ const handler = async (m, { conn, command, args, text }) => {
   try {
     const ytPlay = await yts(text);
     if (!ytPlay.videos.length) {
-      return conn.reply(m.chat, '❌ No se encontraron resultados.', m);
+      return conn.reply(m.chat, '❌ No se encontraron resultados.', m,fake);
     }
 
     const video = ytPlay.videos[0];
@@ -25,7 +25,7 @@ const handler = async (m, { conn, command, args, text }) => {
 
     const audioData = await getDownloadUrl(url);
     if (!audioData || !audioData.url) {
-      return conn.reply(m.chat, '❌ No se pudo obtener el enlace de descarga del MP3.', m);
+      return conn.reply(m.chat, '❌ No se pudo obtener el enlace de descarga del MP3.', m,fake);
     }
 
     const audioUrl = audioData.url;
@@ -36,7 +36,7 @@ const handler = async (m, { conn, command, args, text }) => {
         document: { url: audioUrl },
         fileName: `${title}.mp3`,
         mimetype: 'audio/mpeg',
-      });
+      },{ quated: m });
     } else {
       const audioResponse = await fetch(audioUrl);
       const audioBuffer = await audioResponse.buffer();
@@ -44,7 +44,7 @@ const handler = async (m, { conn, command, args, text }) => {
       await conn.sendMessage(m.chat, {
         audio: audioBuffer,
         mimetype: 'audio/mpeg',
-      });
+      },{ quated: m });
     }
 
     await m.react('✅');
