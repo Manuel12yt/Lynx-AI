@@ -5,7 +5,7 @@ import yts from "yt-search";
 let handler = async (m, { conn, text }) => {
 
 if (!text) return conn.reply(m.chat, `❀ Ingresa un link de YouTube válido`, m,rcanal);
-
+  await m.react('🕓');
 let ytres = await yts(text)
 let video = ytres.videos[0]
   
@@ -41,6 +41,7 @@ let json = await api.json()
 let { download } = json.result
 
 await conn.sendMessage(m.chat, { audio: { url: download.url }, caption: ``, mimetype: "audio/mpeg", }, { quoted: m })
+    await m.react('');
 } catch (error) {
 console.error(error)    
 }}
