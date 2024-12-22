@@ -53,7 +53,7 @@ let handler = async (m, { conn, text }) => {
                 },
             },
         };
-        await conn.reply(m.chat, infoMessage, m, metadata,rcanal);
+        await conn.reply(m.chat, infoMessage, m,rcanal,fake, metadata);
 
         // Descargar audio desde la API
         const apiResponse = await fetch(`https://api.zenkey.my.id/api/download/ytmp3?apikey=zenkey&url=${url}`);
